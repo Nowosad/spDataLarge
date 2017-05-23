@@ -1,8 +1,9 @@
 Package: spDataLarge
 Title: Large datasets for spatial analysis packages
-Version: 0.1.0
+Version: 0.1.9900
 Authors@R: c(person("Jakub", "Nowosad", role = c("aut", "cre"), email="nowosad.jakub@gmail.com"),
              person("Robin", "Lovelace", role = c("aut"), email="rob00x@gmail.com"))
 Description: Large datasets for some spatial analysis packages
 License: CC BY-SA 4.0
 RoxygenNote: 5.0.1
+LazyData: true
