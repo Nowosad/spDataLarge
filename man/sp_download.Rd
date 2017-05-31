@@ -12,7 +12,7 @@ sp_download(filenames, version_id, dest_folder = NULL)
 \item{dest_folder}{optional destination folder}
 }
 \description{
-Retrieves external files from the spDataLarge package
+Retrieves external files from the spDataLarge package, based on functions from the externalrdata package \url(https://github.com/jsta/externalrdata)
 }
 \examples{
 \dontrun{

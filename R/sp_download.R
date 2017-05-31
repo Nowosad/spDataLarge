@@ -1,7 +1,7 @@
 #' sp_download
 #'
 #' @export
-#' @description Retrieves external files from the spDataLarge package
+#' @description Retrieves external files from the spDataLarge package, based on functions from the externalrdata package \url(https://github.com/jsta/externalrdata)
 #' @importFrom utils download.file
 #' @importFrom tools file_ext
 #' @importFrom purrr map2
