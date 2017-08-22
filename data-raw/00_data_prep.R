@@ -2,9 +2,10 @@ library(raster)
 library(sf)
 library(tidyverse)
 
-source("inst/R/01_borders_download.R")
-source("inst/R/02_landsat_download.R")
-source("inst/R/03_srtm_download.R")
+source("data-raw/01_borders_download.R")
+source("data-raw/02_landsat_download.R")
+source("data-raw/03_srtm_download.R")
+source("data-raw/04_nlcd_download.R")
 
 ## park borders
 "inst/vector/nps_boundary.zip" %>%
@@ -28,3 +29,6 @@ map2(filenames, bands, download_landsat8) %>%
 
 
 ## nlcd
+"inst/raster/nlcd2011" %>%
+        download_nlcd(.) %>%
+        preprocess_nlcd(., "inst/vector/zion.gpkg")
