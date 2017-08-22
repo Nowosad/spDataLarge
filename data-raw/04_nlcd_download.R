@@ -28,7 +28,3 @@ preprocess_nlcd <- function(filename, border_vector){
                 file.remove(.)
         unlink(dir_name)
 }
-
-
-filename = "inst/raster/nlcd2011"
-border_vector = "inst/vector/zion.gpkg"
