@@ -22,6 +22,9 @@ bands <- c(2, 3, 4, 5)
 map2(filenames, bands, download_landsat8) %>%
         map(~preprocess_lansat8(., "inst/vector/zion.gpkg"))
 
+stack(filenames) %>%
+        writeRaster(., filename = "inst/raster/landsat.tif", overwrite=TRUE, datatype="INT2U", options=c("COMPRESS=DEFLATE"))
+
 ## srtm
 "inst/raster/srtm_14_05.zip" %>%
         download_srtm(.) %>%
