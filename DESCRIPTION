@@ -1,6 +1,6 @@
 Package: spDataLarge
 Title: Large datasets for spatial analysis
-Version: 0.2.2.9100
+Version: 0.2.3.0
 Authors@R: c(person("Jakub", "Nowosad", role = c("aut", "cre"), email="nowosad.jakub@gmail.com"),
              person("Robin", "Lovelace", role = c("aut"), email="rob00x@gmail.com"))
 Description: Large datasets for spatial analysis. 

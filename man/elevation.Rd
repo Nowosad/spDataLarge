@@ -4,11 +4,14 @@
 \name{elevation}
 \alias{elevation}
 \title{Elevation raster data}
-\format{An object of class \code{RasterLayer} of dimension 463 x 459 x 1.}
+\format{A RasterLayer object}
+\source{
+\url{http://srtm.csi.cgiar.org/SRT-ZIP/SRTM_V41/SRTM_Data_GeoTiff/srtm_14_05.zip}
+}
 \usage{
 elevation
 }
 \description{
-Elevation raster data from SRTM
+Elevation raster data from SRTM of the Zion National Park area
 }
 \keyword{datasets}
