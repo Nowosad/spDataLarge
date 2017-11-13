@@ -10,11 +10,12 @@ preprocess_srtm <- function(filename, border_vector){
         vector_obj <- st_read(border_vector)
         vector_extent <- vector_obj %>%
                 st_buffer(., 1000) %>%
+                st_transform(., crs = 4326) %>%
                 as(., "Spatial") %>%
                 extent(.)
         paste0(dir_name, "/srtm_14_05.tif") %>%
                 raster(.) %>%
-                projectRaster(., crs = st_crs(vector_obj)$proj4string) %>%
+                # projectRaster(., crs = st_crs(vector_obj)$proj4string) %>%
                 crop(., vector_extent) %>%
                 writeRaster(., paste0(dir_name, "/srtm.tif"),
                             overwrite=TRUE, datatype="INT2U", options=c("COMPRESS=DEFLATE"))
