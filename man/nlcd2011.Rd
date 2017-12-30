@@ -2,7 +2,7 @@
 % Please edit documentation in R/rasters.R
 \name{nlcd2011}
 \alias{nlcd2011}
-\title{Dataset srtm}
+\title{Dataset nlcd2011}
 \format{A geotiff file}
 \source{
 \url{https://www.mrlc.gov/nlcd2011.php}

@@ -82,7 +82,7 @@ NULL
 #' @source \url{http://srtm.csi.cgiar.org/SRT-ZIP/SRTM_V41/SRTM_Data_GeoTiff/srtm_14_05.zip}
 NULL
 
-#' Dataset srtm
+#' Dataset nlcd2011
 #'
 #' This is a dataset containing the National Land Cover Database 2011 product for
 #' the Zion National Park area
