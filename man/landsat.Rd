@@ -11,7 +11,3 @@
 This is a dataset containing the four bands (2, 3, 4, 5) of the Landsat 8 image for
 the area of Zion National Park
 }
-\section{landsat.tif}{
-
-}
-

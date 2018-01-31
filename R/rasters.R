@@ -7,7 +7,6 @@
 #'
 #' @name landsat_b2
 #'
-#' @section landsat_b2.tif:
 #'
 #' @source \url{http://landsat-pds.s3.amazonaws.com/L8/038/034/LC80380342015230LGN00/}
 NULL
@@ -21,7 +20,6 @@ NULL
 #'
 #' @name landsat_b3
 #'
-#' @section landsat_b3.tif:
 #'
 #' @source \url{http://landsat-pds.s3.amazonaws.com/L8/038/034/LC80380342015230LGN00/}
 NULL
@@ -35,7 +33,6 @@ NULL
 #'
 #' @name landsat_b4
 #'
-#' @section landsat_b4.tif:
 #'
 #' @source \url{http://landsat-pds.s3.amazonaws.com/L8/038/034/LC80380342015230LGN00/}
 NULL
@@ -49,7 +46,6 @@ NULL
 #'
 #' @name landsat_b5
 #'
-#' @section landsat_b5.tif:
 #'
 #' @source \url{http://landsat-pds.s3.amazonaws.com/L8/038/034/LC80380342015230LGN00/}
 NULL
@@ -63,7 +59,6 @@ NULL
 #'
 #' @name landsat
 #'
-#' @section landsat.tif:
 #'
 #' @source \url{http://landsat-pds.s3.amazonaws.com/L8/038/034/LC80380342015230LGN00/}
 NULL
@@ -77,7 +72,6 @@ NULL
 #'
 #' @name srtm
 #'
-#' @section srtm.tif:
 #'
 #' @source \url{http://srtm.csi.cgiar.org/SRT-ZIP/SRTM_V41/SRTM_Data_GeoTiff/srtm_14_05.zip}
 NULL
@@ -91,7 +85,6 @@ NULL
 #'
 #' @name nlcd2011
 #'
-#' @section nlcd2011.tif:
 #'
 #' @source \url{https://www.mrlc.gov/nlcd2011.php}
 NULL

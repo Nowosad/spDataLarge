@@ -11,7 +11,3 @@
 This is a dataset containing the National Land Cover Database 2011 product for
 the Zion National Park area
 }
-\section{nlcd2011.tif}{
-
-}
-

@@ -11,7 +11,3 @@
 This is a dataset containing the elevation raster data from SRTM of
 the Zion National Park area
 }
-\section{srtm.tif}{
-
-}
-

@@ -53,7 +53,10 @@ unzip("~/Downloads/wu03ew_v2.zip")
 od_all = read_csv("wu03ew_v2.csv")
 file.remove("wu03ew_v2.csv", "julyukrelease_tcm77-369384.xls")
 bristol_od = od_all \%>\%
-       select(o = `Area of residence`, d = `Area of workplace`, all = `All categories: Method of travel to work`, bicycle = Bicycle, foot = `On foot`, car_driver = `Driving a car or van`, train = Train) \%>\%
+       select(o = `Area of residence`, d = `Area of workplace`,
+              all = `All categories: Method of travel to work`,
+              bicycle = Bicycle, foot = `On foot`,
+              car_driver = `Driving a car or van`, train = Train) \%>\%
        filter(o \%in\% bristol_zones$geo_code & d \%in\% bristol_zones$geo_code, all > 19)
 summary(bristol_zones$geo_code \%in\% bristol_od$d)
 summary(bristol_zones$geo_code \%in\% bristol_od$o)
@@ -61,7 +64,9 @@ devtools::use_data(bristol_zones)
 devtools::use_data(bristol_od)
 bb = st_bbox(bristol_ttwa)
 ways_road = opq(bbox = bb) \%>\%
-        add_osm_feature(key = "highway", value = "motorway|cycle|primary|secondary", value_exact = FALSE) \%>\%
+        add_osm_feature(key = "highway",
+                        value = "motorway|cycle|primary|secondary",
+                        value_exact = FALSE) \%>\%
         osmdata_sf()
 ways_rail = opq(bbox = bb) \%>\%
         add_osm_feature(key = "railway", value = "rail") \%>\%

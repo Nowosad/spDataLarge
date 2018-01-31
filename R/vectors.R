@@ -6,7 +6,5 @@
 #'
 #' @name zion
 #'
-#' @section zion.gpkg:
-#'
 #' @source \url{https://irma.nps.gov/DataStore/DownloadFile/580617}
 NULL

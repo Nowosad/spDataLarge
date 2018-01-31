@@ -11,7 +11,3 @@
 This is a dataset containing the forth band of the Landsat 8 image for
 the area of Zion National Park
 }
-\section{landsat_b4.tif}{
-
-}
-

@@ -10,7 +10,3 @@
 \description{
 This is a dataset containing the borders of Zion National Park
 }
-\section{zion.gpkg}{
-
-}
-
