@@ -1,4 +1,4 @@
-#' Datasets providing a snapshort of Bristol's transport system
+#' Datasets providing a snapshot of Bristol's transport system
 #'
 #' Data used in the transport chapter in Geocomputation with R.
 #' See \url{http://geocompr.robinlovelace.net/transport.html} for details.
@@ -79,7 +79,7 @@
 #' bristol_ways = st_cast(ways, "LINESTRING")
 #' summary(st_geometry(bristol_ways))
 #' devtools::use_data(bristol_ways)
-#' #' }
+#' }
 "bristol_ways"
 
 
