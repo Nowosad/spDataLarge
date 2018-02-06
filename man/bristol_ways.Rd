@@ -9,6 +9,8 @@
 \alias{bristol_ttwa}
 \alias{bristol_zones}
 \alias{bristol_stations}
+\alias{desire_carshort}
+\alias{route_carshort}
 \title{Datasets providing a snapshot of Bristol's transport system}
 \format{sf data frame objects}
 \source{
@@ -23,7 +25,6 @@ See \url{http://geocompr.robinlovelace.net/transport.html} for details.
 }
 \examples{
 \dontrun{
-
 devtools::install_github("ropensci/osmdata")
 devtools::install_github("robinlovelace/ukboundaries")
 library(osmdata)
@@ -62,6 +63,12 @@ summary(bristol_zones$geo_code \%in\% bristol_od$d)
 summary(bristol_zones$geo_code \%in\% bristol_od$o)
 devtools::use_data(bristol_zones)
 devtools::use_data(bristol_od)
+od_intra = filter(bristol_od, o == d)
+od_inter = filter(bristol_od, o != d)
+desire_lines = od2line(od_inter, zones)
+desire_lines$distance = as.numeric(st_length(desire_lines))
+desire_carshort = dplyr::filter(desire_lines, car_driver > 300 & distance < 5000)
+route_carshort = stplanr::line2route(desire_carshort, route_fun = route_osrm)
 bb = st_bbox(bristol_ttwa)
 ways_road = opq(bbox = bb) \%>\%
         add_osm_feature(key = "highway",

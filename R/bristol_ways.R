@@ -6,9 +6,8 @@
 #' @format sf data frame objects
 #'
 #' @source \url{http://wicid.ukdataservice.ac.uk/} and other open access sources
-#' @aliases bristol_od bristol_region bristol_cents bristol_ttwa bristol_zones bristol_stations
+#' @aliases bristol_od bristol_region bristol_cents bristol_ttwa bristol_zones bristol_stations desire_carshort route_carshort
 #' @examples \dontrun{
-#'
 #' devtools::install_github("ropensci/osmdata")
 #' devtools::install_github("robinlovelace/ukboundaries")
 #' library(osmdata)
@@ -47,6 +46,12 @@
 #' summary(bristol_zones$geo_code %in% bristol_od$o)
 #' devtools::use_data(bristol_zones)
 #' devtools::use_data(bristol_od)
+#' od_intra = filter(bristol_od, o == d)
+#' od_inter = filter(bristol_od, o != d)
+#' desire_lines = od2line(od_inter, zones)
+#' desire_lines$distance = as.numeric(st_length(desire_lines))
+#' desire_carshort = dplyr::filter(desire_lines, car_driver > 300 & distance < 5000)
+#' route_carshort = stplanr::line2route(desire_carshort, route_fun = route_osrm)
 #' bb = st_bbox(bristol_ttwa)
 #' ways_road = opq(bbox = bb) %>%
 #'         add_osm_feature(key = "highway",
