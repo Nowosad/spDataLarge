@@ -11,6 +11,7 @@
 \alias{bristol_stations}
 \alias{desire_carshort}
 \alias{route_carshort}
+\alias{route_rail}
 \title{Datasets providing a snapshot of Bristol's transport system}
 \format{sf data frame objects}
 \source{

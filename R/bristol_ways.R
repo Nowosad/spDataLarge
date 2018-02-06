@@ -6,7 +6,7 @@
 #' @format sf data frame objects
 #'
 #' @source \url{http://wicid.ukdataservice.ac.uk/} and other open access sources
-#' @aliases bristol_od bristol_region bristol_cents bristol_ttwa bristol_zones bristol_stations desire_carshort route_carshort
+#' @aliases bristol_od bristol_region bristol_cents bristol_ttwa bristol_zones bristol_stations desire_carshort route_carshort route_rail
 #' @examples \dontrun{
 #' devtools::install_github("ropensci/osmdata")
 #' devtools::install_github("robinlovelace/ukboundaries")
