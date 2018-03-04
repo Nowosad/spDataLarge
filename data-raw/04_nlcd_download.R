@@ -27,4 +27,5 @@ preprocess_nlcd <- function(filename, border_vector){
 
         unlink(paste0(dir_name, "/nlcd_2011_landcover_2011_edition_2014_10_10"), recursive = TRUE, force = TRUE)
         file.remove(filename)
+        return(paste0(dir_name, "/nlcd2011.tif"))
 }
