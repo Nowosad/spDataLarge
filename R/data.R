@@ -34,3 +34,15 @@
 #' @format A sf object
 #'
 "zion_points"
+
+#' New Zeleand elevation raster data
+#'
+#' Elevation raster data of the New Zeleand area from the Mapzen Terrain Service
+#'
+#' @format A RasterLayer object
+#'
+#' @seealso
+#' See the elevatr package: https://cran.r-project.org/web/packages/elevatr
+#'
+#' @source \url{https://aws.amazon.com/public-datasets/terrain/}
+"nz_elev"
