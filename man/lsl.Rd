@@ -5,9 +5,9 @@
 \alias{lsl}
 \alias{ta}
 \title{Terrain attributes and landslide dataset}
-\format{raster brick (\code{ta}) data frame object (\code{lsl})}
+\format{raster brick (\code{ta}) and data frame object (\code{lsl})}
 \source{
-`data("landslides", package = "RSAGA")`
+Landslide dataset of the RSAGA package: \code{data("landslides", package = "RSAGA")}.
 }
 \usage{
 lsl

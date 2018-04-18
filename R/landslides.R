@@ -3,9 +3,9 @@
 #' Data used in the "Statistical learning for geographic data" chapter in Geocomputation with R.
 #' See \url{http://geocompr.robinlovelace.net/spatial-cv.html} for details.
 #'
-#' @format raster brick (\code{ta}) data frame object (\code{lsl})
+#' @format raster brick (\code{ta}) and data frame object (\code{lsl})
 #'
-#' @source `data("landslides", package = "RSAGA")`
+#' @source Landslide dataset of the RSAGA package: \code{data("landslides", package = "RSAGA")}.
 #' @aliases ta lsl
 #' @examples \dontrun{
 #' library(RQGIS)
