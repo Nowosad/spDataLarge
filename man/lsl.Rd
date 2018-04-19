@@ -4,10 +4,32 @@
 \name{lsl}
 \alias{lsl}
 \alias{ta}
-\title{Terrain attributes and landslide dataset}
+\title{Landslide dataset from Southern Ecuador and corresponding terrain attributes}
 \format{raster brick (\code{ta}) and data frame object (\code{lsl})}
 \source{
 Landslide dataset of the RSAGA package: \code{data("landslides", package = "RSAGA")}.
+
+\strong{DEM:}
+
+  Ungerechts, L. (2010): DEM 10m (triangulated from aerial photo - b/w).
+  Available online:
+
+  `http://www.tropicalmountainforest.org/data_pre.do?citid=901`
+
+  Jordan, E., Ungerechts, L., Caceres, B. Penafiel, A. and Francou, B.
+  (2005): Estimation by photogrammetry of the glacier recession on the
+  Cotopaxi Volcano (Ecuador) between 1956 and 1997. *Hydrological
+  Sciences* 50, 949-961.
+
+  \strong{Landslide Data:}
+
+  Muenchow, J., Brenning, A., Richter, R. (2012): Geomorphic process rates of
+  landslides along a humidity gradient in the tropical Andes, Geomorphology
+  139-140, 271-284. DOI: 10.1016/j.geomorph.2011.10.029.
+
+  Stoyan, R. (2000): Aktivitaet, Ursachen und Klassifikation der Rutschungen
+  in San Francisco/Suedecuador. Unpublished diploma thesis, University of
+  Erlangen-Nuremberg, Germany.
 }
 \usage{
 lsl
