@@ -8,7 +8,7 @@
 \title{Landslide dataset from Southern Ecuador and corresponding terrain attributes}
 \format{The landslide dataset consists of three objects (CRS: UTM zone 17S; EPSG:32717):
 \enumerate{
-    \item{\code{ta}} {A \code{raster} brick (\code{ta}) containing 5 (terrain attribute) rasters.}
+    \item{\code{ta}} {A \code{raster} stack (\code{ta}) containing 5 (terrain attribute) rasters.}
     \item{\code{lsl}} {A \code{data.frame} object representing the coordinates of landslide initiation points with 350 rows and 8 columns.}
     \item{\code{study_mask}  {An \code{sf}-object delineating the natural part of the study area.}
     }
