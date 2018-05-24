@@ -12,7 +12,8 @@
 nz_elev
 }
 \description{
-Elevation raster data of the New Zeleand area from the Mapzen Terrain Service
+Elevation raster data of the New Zeleand area from the Mapzen Terrain Service.
+For teaching purposes only
 }
 \seealso{
 See the elevatr package: https://cran.r-project.org/web/packages/elevatr
