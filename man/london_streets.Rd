@@ -4,7 +4,7 @@
 \name{london_streets}
 \alias{london_streets}
 \title{Streets of london downloaded from OSM}
-\format{sf data frame objects}
+\format{An sf-object with one attribute (\code{osm_id}) and one \code{geometry} column.}
 \source{
 OpenStreetMap (see \url{https://www.openstreetmap.org/}).
 }

@@ -3,7 +3,7 @@
 #' Data used in the "Bridges to GIS" chapter in Geocomputation with R.
 #' See \url{http://geocompr.robinlovelace.net/gis.html} for details.
 #'
-#' @format sf data frame objects
+#' @format An sf-object with one attribute (\code{osm_id}) and one \code{geometry} column.
 #' @source OpenStreetMap (see \url{https://www.openstreetmap.org/}).
 #'
 #' @examples \dontrun{
