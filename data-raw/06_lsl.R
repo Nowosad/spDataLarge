@@ -1,9 +1,9 @@
-#Filename: 06_lsl.R (2018-04-18)
+# Filename: 06_lsl.R (2018-04-18)
 #
-#TO DO: Create terrain attribute raster and extract corresponding values to
-# points
+# TO DO: Create terrain attribute raster and extract corresponding values to
+#        points
 #
-#Author(s): Jannes Muenchow
+# Author(s): Jannes Muenchow
 #
 #**********************************************************
 # CONTENTS-------------------------------------------------
