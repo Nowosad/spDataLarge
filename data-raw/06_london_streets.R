@@ -19,6 +19,7 @@
 library(sf)
 library(osmdata)
 library(spData)
+library(dplyr)
 # attach data
 data(cycle_hire)
 points = cycle_hire[1:25, ]
