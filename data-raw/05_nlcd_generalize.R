@@ -5,7 +5,7 @@ generalize_nlcd = function(new_file_name){
         nlcd = ratify(reclassify(nlcd, rclmat, include.lowest = TRUE, right = NA))
         landcover_names = c("Water", "Developed", "Barren", "Forest", "Shrubland", "Herbaceous", "Cultivated", "Wetlands")
         landcover_cols = c("#476ba0", "#aa0000", "#b2ada3", "#68aa63", "#a58c30", "#c9c977", "#dbd83d", "#bad8ea")
-        levels(nlcd) = cbind(levels(nlcd)[[1]], data.frame(levels = landcover_names,
-                                                           colors = landcover_cols))
+        levels(nlcd) = cbind(levels(nlcd)[[1]], data.frame(colors = landcover_cols),
+                             levels = landcover_names)
         nlcd
 }
