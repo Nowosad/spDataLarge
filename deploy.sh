@@ -21,7 +21,7 @@ addToDrat(){
     repodir = '.', \
     commit='Travis update $PKG_REPO: build $TRAVIS_BUILD_NUMBER')"
 
-  git push -u --quiet
+  git push 2>err.txt
 
 }
 
