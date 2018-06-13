@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 inst/data/
 ^data-raw$
+^\.travis\.yml$
+deploy.sh

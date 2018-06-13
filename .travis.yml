@@ -1,0 +1,12 @@
+language: r
+cache: packages
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+after_success:
+  - test $TRAVIS_PULL_REQUEST == "false" &&
+    test $TRAVIS_BRANCH == "master" &&
+    bash deploy.sh
