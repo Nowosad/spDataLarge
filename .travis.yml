@@ -4,9 +4,15 @@ notifications:
   email:
     on_success: change
     on_failure: change
+
+r_packages:
+  - raster
+  - drat
+
 after_success:
 - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash
   deploy.sh
+
 env:
   global:
     secure: gmOiWSpPnBTpTACG0kLYjNgTItyLMjUwWEQ642e1eGyu6Gm2CrtyFBIIkf6yktHI52OjAaiDZ6att+s0GNb89UvQKIpJxYzh/jV0MzGcLT0UwjubR9N3mRfokjlN0T3lqFyTz8j6RlWt1S4MNM8RCkpyRcffE57l8eNwRJw3Rk2vEhHTmgdu4o96dhWDWBgiBMjp1yDppOLysqfJx/3kWKH4+APbvMHOhrIXxQ2iL6Te0k9s51xYj6R9BW7/VLGYJlcUXhpNRPfSftidPAp20CG9d3QPsYDrbOD6yCGFDpu4YTra2oMd7/SGqG0L2J/wkNUGUbc9ERI60AH78DW1zYSyMKg9TTHxsLxUCctGeBwZAfQ1Y/yD0fhbaainbUMSpl1oFytKf04boVfupImLcUCefrNNJkFbSNa3vqSl7jaW9LGeKburW+qPUy8rbaOsjGG8MlEKLL3/fxrXYj90FgPOnavH0CGB8wg8FhiZE6y/nOimZOIDEnFBXhnV3UiZkqRqiPfa7N47nNOt5gM7/VkYBr1Brzfe5akwzeYMpy/rErzdsrgsqMqxxRGh2DINkW2AIeO9ij2fK++a7ByoCTX7bVbLXTvGL7B7xS8DM7Bd7jgVdO8MI4kajHVYIj3AR6yp6iReGTXB+f+lnSa25LlYfZ7DWCzoDbR6eUYAjzQ=
