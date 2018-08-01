@@ -28,7 +28,7 @@ points = cycle_hire[1:25, ]
 # 2 DOWNLOAD AND SAVE DATA---------------------------------
 #**********************************************************
 
-b_box = sf::st_bbox(cycle_hire)
+b_box = sf::st_bbox(points)
 london_streets = opq(b_box) %>%
         add_osm_feature(key = "highway") %>%
         osmdata_sf() %>%

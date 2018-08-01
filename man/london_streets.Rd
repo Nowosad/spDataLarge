@@ -23,7 +23,7 @@ library(spData)
 library(dplyr)
 data(cycle_hire)
 points = cycle_hire[1:25, ]
-b_box = sf::st_bbox(cycle_hire)
+b_box = sf::st_bbox(points)
 london_streets = opq(b_box) \%>\%
         add_osm_feature(key = "highway") \%>\%
         osmdata_sf() \%>\%
