@@ -3,7 +3,7 @@
 \docType{data}
 \name{ep}
 \alias{ep}
-\title{Environmental predictors from the southern slope of the Mt. Mongón, Peru}
+\title{Environmental predictors from the southern slope of the Mt. Mongon, Peru}
 \format{The ep \code{RasterBrick} consists of four raster objects (CRS: UTM zone 17S; EPSG:32717) with 117 rows and 117 columns:
 \enumerate{
     \item{\code{dem}} {Digital elevation model (ASTER GDEM, LP DAAC 2012), see also [RQGIS::dem].}
@@ -17,7 +17,7 @@ at the U.S. Geological Survey (USGS) Earth Resources Observation
 and Science (EROS) Center. Available at: https://lpdaac.usgs.gov/
 (last accessed 25 January 2012).
 
-Muenchow, J., Bräuning, A., Rodríguez, E.F. & von Wehrden, H. (2013):
+Muenchow, J., Brauning, A., Rodriguez, E.F. & von Wehrden, H. (2013):
 Predictive mapping of species richness and plant species' distributions of a
 Peruvian fog oasis along an altitudinal gradient. Biotropica 45, 5, 557-566,
 doi: 10.1111/btp.12049.

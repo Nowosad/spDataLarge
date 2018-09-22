@@ -1,4 +1,4 @@
-#' Environmental predictors from the southern slope of the Mt. Mongón, Peru
+#' Environmental predictors from the southern slope of the Mt. Mongon, Peru
 #'
 #' Data used in the "Ecology" chapter in Geocomputation with R.
 #' See \url{https://geocompr.robinlovelace.net/eco.html} for details.
@@ -16,7 +16,7 @@
 #' and Science (EROS) Center. Available at: https://lpdaac.usgs.gov/
 #' (last accessed 25 January 2012).
 #'
-#' Muenchow, J., Bräuning, A., Rodríguez, E.F. & von Wehrden, H. (2013):
+#' Muenchow, J., Brauning, A., Rodriguez, E.F. & von Wehrden, H. (2013):
 #' Predictive mapping of species richness and plant species' distributions of a
 #' Peruvian fog oasis along an altitudinal gradient. Biotropica 45, 5, 557-566,
 #' doi: 10.1111/btp.12049.
@@ -44,5 +44,3 @@
 #' ep$carea = log10(ep$carea)
 #' }
 "ep"
-
-
