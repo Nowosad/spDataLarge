@@ -9,7 +9,7 @@ Description: Large datasets for spatial analysis.
 Depends:
     R (>= 3.3.0)
 License: CC0
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 LazyData: true
 URL: https://github.com/Nowosad/spDataLarge
 BugReports: https://github.com/Nowosad/spDataLarge/issues
