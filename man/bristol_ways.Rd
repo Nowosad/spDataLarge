@@ -34,15 +34,15 @@ library(tidyverse)
 library(ukboundaries)
 bristol_region = getbb("Bristol", format_out = "sf_polygon") \%>\%
         st_set_crs(4326) \%>\%
-        st_sf(data.frame(Name = "Bristol (OSM)"), geometry = region$geometry)
+        st_sf(data.frame(Name = "Bristol (OSM)"), geometry = .$geometry)
 mapview::mapview(bristol_region)
-devtools::use_data(bristol_region)
+usethis::use_data(bristol_region, overwrite = TRUE)
 bristol_ttwa = ttwa_simple \%>\%
         filter(ttwa11nm == "Bristol") \%>\%
         select(Name = ttwa11nm)
 bristol_ttwa$Name = "Bristol (TTWA)"
 mapview::mapview(bristol_ttwa)
-devtools::use_data(bristol_ttwa)
+usethis::use_data(bristol_ttwa, overwrite = TRUE)
 bristol_cents = st_centroid(msoa2011_vsimple)[bristol_ttwa, ]
 plot(bristol_cents$geometry)
 bristol_zones = msoa2011_vsimple[msoa2011_vsimple$msoa11cd \%in\% bristol_cents$msoa11cd, ] \%>\%
