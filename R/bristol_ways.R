@@ -14,6 +14,7 @@
 #' library(sf)
 #' library(tidyverse)
 #' library(ukboundaries)
+#' library(stplanr)
 #' bristol_region = getbb("Bristol", format_out = "sf_polygon") %>%
 #'         st_set_crs(4326) %>%
 #'         st_sf(data.frame(Name = "Bristol (OSM)"), geometry = .$geometry)
@@ -32,10 +33,17 @@
 #'         mutate_at(1:2, as.character)
 #' plot(bristol_zones$geometry, add = TRUE)
 #' # Add travel data to the zones
-#' # using wicid open data - see http://wicid.ukdataservice.ac.uk/
-#' unzip("~/Downloads/wu03ew_v2.zip")
-#' od_all = read_csv("wu03ew_v2.csv")
-#' file.remove("wu03ew_v2.csv", "julyukrelease_tcm77-369384.xls")
+#' # commented out - manual download from: http://wicid.ukdataservice.ac.uk/
+#' # unzip("~/Downloads/wu03ew_v2.zip")
+#' # od_all = read_csv("wu03ew_v2.csv")
+#' # od_all_small = od_all %>%
+#' #   filter(`Area of residence` %in% bristol_zones$geo_code &
+#' #     `Area of workplace` %in% bristol_zones$geo_code,
+#' #       `All categories: Method of travel to work` > 19)
+#' # readr::write_csv(od_all_small, "od_all_small.csv")
+#' # piggyback::pb_upload("od_all_small.csv")
+#' # file.remove("wu03ew_v2.csv", "julyukrelease_tcm77-369384.xls")
+#' od_all = read_csv("https://github.com/Nowosad/spDataLarge/releases/download/0.2.7.3/od_all_small.csv")
 #' bristol_od = od_all %>%
 #'        select(o = `Area of residence`, d = `Area of workplace`,
 #'               all = `All categories: Method of travel to work`,
@@ -44,11 +52,11 @@
 #'        filter(o %in% bristol_zones$geo_code & d %in% bristol_zones$geo_code, all > 19)
 #' summary(bristol_zones$geo_code %in% bristol_od$d)
 #' summary(bristol_zones$geo_code %in% bristol_od$o)
-#' devtools::use_data(bristol_zones)
-#' devtools::use_data(bristol_od)
+#' usethis::use_data(bristol_zones, overwrite = TRUE)
+#' usethis::use_data(bristol_od, overwrite = TRUE)
 #' od_intra = filter(bristol_od, o == d)
 #' od_inter = filter(bristol_od, o != d)
-#' desire_lines = od2line(od_inter, zones)
+#' desire_lines = od2line(od_inter, zones) # failing here
 #' desire_lines$distance = as.numeric(st_length(desire_lines))
 #' desire_carshort = dplyr::filter(desire_lines, car_driver > 300 & distance < 5000)
 #' route_carshort = stplanr::line2route(desire_carshort, route_fun = route_osrm)
@@ -70,7 +78,7 @@
 #'         sort() %>%
 #'         head()
 #' bristol_stations = bristol_stations %>% select(name)
-#' devtools::use_data(bristol_stations)
+#' usethis::use_data(bristol_stations)
 #' ways = st_intersection(res$osm_lines, bristol_ttwa)
 #' ways$highway = as.character(ways$highway)
 #' ways$highway[ways$railway == "rail"] = "rail"
@@ -83,7 +91,7 @@
 #' # convert to linestring
 #' bristol_ways = st_cast(ways, "LINESTRING")
 #' summary(st_geometry(bristol_ways))
-#' devtools::use_data(bristol_ways)
+#' usethis::use_data(bristol_ways)
 #' }
 "bristol_ways"
 
