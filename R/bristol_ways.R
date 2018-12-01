@@ -56,10 +56,12 @@
 #' usethis::use_data(bristol_od, overwrite = TRUE)
 #' od_intra = filter(bristol_od, o == d)
 #' od_inter = filter(bristol_od, o != d)
-#' desire_lines = od2line(od_inter, zones) # failing here
+#' desire_lines = od2line(od_inter, bristol_zones)
 #' desire_lines$distance = as.numeric(st_length(desire_lines))
 #' desire_carshort = dplyr::filter(desire_lines, car_driver > 300 & distance < 5000)
 #' route_carshort = stplanr::line2route(desire_carshort, route_fun = route_osrm)
+#' route_carshort = st_as_sf(route_carshort)
+#' usethis::use_data(route_carshort, overwrite = TRUE)
 #' bb = st_bbox(bristol_ttwa)
 #' ways_road = opq(bbox = bb) %>%
 #'         add_osm_feature(key = "highway",
@@ -78,7 +80,7 @@
 #'         sort() %>%
 #'         head()
 #' bristol_stations = bristol_stations %>% select(name)
-#' usethis::use_data(bristol_stations)
+#' usethis::use_data(bristol_stations, overwrite = TRUE)
 #' ways = st_intersection(res$osm_lines, bristol_ttwa)
 #' ways$highway = as.character(ways$highway)
 #' ways$highway[ways$railway == "rail"] = "rail"
@@ -91,7 +93,7 @@
 #' # convert to linestring
 #' bristol_ways = st_cast(ways, "LINESTRING")
 #' summary(st_geometry(bristol_ways))
-#' usethis::use_data(bristol_ways)
+#' usethis::use_data(bristol_ways, overwrite = TRUE)
 #' }
 "bristol_ways"
 
