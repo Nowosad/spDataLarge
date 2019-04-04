@@ -1,3 +1,7 @@
+## file 08_pol_pres15.R
+## author Roger Bivand (April 2019 based on exercises May/June 2015)
+## Polish Presidential election data 2015, first (I) and second runoff (II) rounds
+
 download.file("https://prezydent2015.pkw.gov.pl/prezydent_2015_tura1.zip", "prezydent_2015_tura1.zip")
 unzip("prezydent_2015_tura1.zip", files="prezydent_2015_tura1.csv")
 round1 <- read.csv2("prezydent_2015_tura1.csv", header=TRUE, fileEncoding="CP1250", stringsAsFactors=FALSE)
@@ -9,6 +13,7 @@ round1b1 <- aggregate(round1a[, 7:37], list(round1a$TERYT.gminy), sum)
 download.file("https://prezydent2015.pkw.gov.pl/wyniki_tura2.zip", "wyniki_tura2.zip")
 unzip("wyniki_tura2.zip", files="wyniki_tura2.xls")
 # readxl::read_excel() messed up ID column "TERYT gminy"
+# https://github.com/tidyverse/readxl/issues/565
 # convert to CSV in spreadsheet, leave in CP1250
 round2 <- read.csv2("wyniki_tura2.csv", header=TRUE, fileEncoding="CP1250", stringsAsFactors=FALSE)
 round2[[3]] <- formatC(round2[[3]], width=6, format="d", flag="0")
@@ -23,15 +28,18 @@ both_rounds1 <- merge(round1b1, round2b1, by.x="I_Group.1", by.y="II_Group.1")
 # http://www.gugik.gov.pl/geodezja-i-kartografia/pzgik/dane-bez-oplat/dane-z-panstwowego-rejestru-granic-i-powierzchni-jednostek-podzialow-terytorialnych-kraju-prg
 # downloaded May 2015 ftp://91.223.135.109/prg/jednostki_administracyjne.zip
 # current files differ, possibly some boundary changes
-# file size for jednostki_ewidencyjne.* ~ 110 MB
+# file size for jednostki_ewidencyjne.* ~ 110 MB; clean and line generalize in GRASS
 # v.in.ogr --overwrite input=jednostki_ewidencyjne.shp layer=jednostki_ewidencyjne output=je2 snap=0.01 encoding=CP1250
 # v.generalize --overwrite input=je2@rsb type=area output=je_s method=douglas threshold=1000
 # v.out.ogr --overwrite input=je_s@rsb output=je_s.gpkg format=GPKG
 # after line generalization using GRASS 5.4 MB
 
+# geometries include primary entities, boroughs in three large cities (but only Warsaw
+# boroughs TERYT-code in voting data, and urban/rural splits in some entities, not in
+# voting data)
 library(sf)
 je <- st_read("je_s.gpkg", stringsAsFactors=FALSE)
-# aggregate administrative areas
+# aggregate administrative areas from urban/rural splits
 je$kod6 <- substring(je$jpt_kod_je, 1, 6)
 je_agg <- aggregate(je, list(je$kod6), head, n=1)
 # drop most columns
@@ -78,7 +86,7 @@ II_Liczba.głosów.ważnych)
 # add translated column names (kod6a rendered as TERYT)
 attr(pol_pres15, "orig_names") <- names(pol_pres15)
 df <- data.frame(nms_pl=names(pol_pres15))
-# write.csv(df, "nms_df.csv")
+# write.csv(df, "nms_df.csv") # translated by hand outside R
 df1 <- read.csv("nms_df.csv", stringsAsFactors=FALSE)
 names(pol_pres15) <- df1$nms_en
 save(pol_pres15, file="pol_pres15.rda")
