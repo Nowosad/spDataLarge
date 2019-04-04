@@ -7,7 +7,7 @@
 #'  \item{\code{TERYT}, \code{TERYT0}, \code{gm0}}{TERYT areal unit IDs}
 #'  \item{\code{name0}}{original areal unit names}
 #'  \item{\code{name}}{cleaned areal unit names}
-#'  \item{\code{types}}{factor with levels \dquote{Rural}, \dquote{Urban}, \dquote{Urban/rural} and \dquote{Warsaw borough}}
+#'  \item{\code{types}}{factor with levels \dQuote{Rural}, \dQuote{Urban}, \dQuote{Urban/rural} and \dQuote{Warsaw borough}}
 #'  \item{\code{I_turnout}}{First round turnout proportion}
 #'  \item{\code{II_turnout}}{Runoff round turnout proportion}
 #'  \item{\code{I_Duda_share}}{Winner first round share}
@@ -18,7 +18,7 @@
 #'  \item{\code{II_*}}{Runoff round aggregated counts of all polling station data}
 #' }
 #' 
-#' @note \dquote{PVE} in variable names means \dquote{postal voting envelopes}; voters requesting a postal voting package are expected to return a postal voting envelope with a declaration, and a sealed voting envelope to be placed in the ballot box.
+#' @note \dQuote{PVE} in variable names means \dQuote{postal voting envelopes}; voters requesting a postal voting package are expected to return a postal voting envelope with a declaration, and a sealed voting envelope to be placed in the ballot box.
 #' 
 #' @source \url{https://prezydent2015.pkw.gov.pl/319_Pierwsze_glosowanie}, \url{https://prezydent2015.pkw.gov.pl/325_Ponowne_glosowanie}, \url{http://www.codgik.gov.pl/index.php/darmowe-dane/prg.html}
 #' 

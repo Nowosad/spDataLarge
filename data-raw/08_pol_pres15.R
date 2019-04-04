@@ -84,7 +84,6 @@ I_Liczba.głosów.ważnych)
 pol_pres15$II_komo <- with(pol_pres15,  II_Bronisław.Maria.Komorowski / 
 II_Liczba.głosów.ważnych)
 # add translated column names (kod6a rendered as TERYT)
-attr(pol_pres15, "orig_names") <- names(pol_pres15)
 df <- data.frame(nms_pl=names(pol_pres15))
 # write.csv(df, "nms_df.csv") # translated by hand outside R
 df1 <- read.csv("nms_df.csv", stringsAsFactors=FALSE)
