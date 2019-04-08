@@ -33,9 +33,9 @@ Polish Presidential election 2015 data by gminy and Warsaw borough areal units
 }
 \examples{
 \dontrun{
-data("pol_pres15", package="spDataLarge")
-wd <- aggregate(pol_pres15$I_entitled_to_vote, list(pol_pres15$types), sum)$x
-boxplot(I_turnout ~ types, data=pol_pres15, width=wd)
+data("pol_pres15", package = "spDataLarge")
+wd = aggregate(pol_pres15$I_entitled_to_vote, list(pol_pres15$types), sum)$x
+boxplot(I_turnout ~ types, data = pol_pres15, width = wd)
 }
 }
 \author{
