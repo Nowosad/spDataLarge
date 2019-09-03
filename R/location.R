@@ -1,7 +1,7 @@
 #' Datasets providing building blocks for a location analysis
 #'
 #' Data used in the geomarketing chapter in Geocomputation with R.
-#' See \url{http://geocompr.robinlovelace.net/transport.html} for details.
+#' See \url{http://geocompr.robinlovelace.net/location.html} for details.
 #'
 #' @format sf data frame objects
 #'
