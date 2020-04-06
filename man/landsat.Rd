@@ -3,7 +3,9 @@
 \name{landsat}
 \alias{landsat}
 \title{Dataset landsat}
-\format{A multilayer geotiff file}
+\format{
+A multilayer geotiff file
+}
 \source{
 \url{http://landsat-pds.s3.amazonaws.com/L8/038/034/LC80380342015230LGN00/}
 }

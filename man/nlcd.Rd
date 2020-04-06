@@ -4,7 +4,8 @@
 \name{nlcd}
 \alias{nlcd}
 \title{Land cover raster data}
-\format{A RasterLayer object
+\format{
+A RasterLayer object
 \itemize{
         \item{1} {Water}
         \item{2} {Developed}
@@ -14,7 +15,8 @@
         \item{6} {Herbaceous}
         \item{7} {Cultivated}
         \item{8} {Wetlands}
-}}
+}
+}
 \source{
 \url{https://www.mrlc.gov/nlcd2011.php}
 }

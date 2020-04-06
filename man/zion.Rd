@@ -3,7 +3,9 @@
 \name{zion}
 \alias{zion}
 \title{Dataset zion}
-\format{A geopackage file}
+\format{
+A geopackage file
+}
 \source{
 \url{https://irma.nps.gov/DataStore/DownloadFile/580617}
 }

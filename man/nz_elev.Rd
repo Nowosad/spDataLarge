@@ -4,7 +4,9 @@
 \name{nz_elev}
 \alias{nz_elev}
 \title{New Zeleand elevation raster data}
-\format{A RasterLayer object}
+\format{
+A RasterLayer object
+}
 \source{
 \url{https://aws.amazon.com/public-datasets/terrain/}
 }

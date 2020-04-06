@@ -3,7 +3,9 @@
 \name{nlcd2011}
 \alias{nlcd2011}
 \title{Dataset nlcd2011}
-\format{A geotiff file}
+\format{
+A geotiff file
+}
 \source{
 \url{https://www.mrlc.gov/nlcd2011.php}
 }

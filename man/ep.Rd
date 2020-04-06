@@ -4,13 +4,15 @@
 \name{ep}
 \alias{ep}
 \title{Environmental predictors from the southern slope of the Mt. Mongon, Peru}
-\format{The ep \code{RasterBrick} consists of four raster objects (CRS: UTM zone 17S; EPSG:32717) with 117 rows and 117 columns:
+\format{
+The ep \code{RasterBrick} consists of four raster objects (CRS: UTM zone 17S; EPSG:32717) with 117 rows and 117 columns:
 \enumerate{
     \item{\code{dem}} {Digital elevation model (ASTER GDEM, LP DAAC 2012), see also [RQGIS::dem].}
     \item{\code{ndvi}} {Normalized Differenced Vegetation index.}
     \item{\code{carea}} {Catchment area.}
     \item{\code{cslope}} {Catchment slope}
-    }}
+    }
+}
 \source{
 LP DAAC (2012): Land Processes Distributed Active Archive Center, located
 at the U.S. Geological Survey (USGS) Earth Resources Observation

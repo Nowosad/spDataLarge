@@ -13,7 +13,9 @@
 \alias{route_carshort}
 \alias{route_rail}
 \title{Datasets providing a snapshot of Bristol's transport system}
-\format{sf data frame objects}
+\format{
+sf data frame objects
+}
 \source{
 \url{http://wicid.ukdataservice.ac.uk/} and other open access sources
 }

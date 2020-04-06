@@ -3,7 +3,9 @@
 \name{srtm}
 \alias{srtm}
 \title{Dataset srtm}
-\format{A geotiff file}
+\format{
+A geotiff file
+}
 \source{
 \url{http://srtm.csi.cgiar.org/SRT-ZIP/SRTM_V41/SRTM_Data_GeoTiff/srtm_14_05.zip}
 }

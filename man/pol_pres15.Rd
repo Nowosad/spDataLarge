@@ -4,7 +4,8 @@
 \name{pol_pres15}
 \alias{pol_pres15}
 \title{Polish election data 2015}
-\format{\code{sf} data frame object with 2495 areal units and 65 variables
+\format{
+\code{sf} data frame object with 2495 areal units and 65 variables
 \itemize{
  \item{\code{TERYT}, \code{TERYT0}, \code{gm0}}{TERYT areal unit IDs}
  \item{\code{name0}}{original areal unit names}
@@ -18,7 +19,8 @@
  \item{\code{II_Komorowski_share}}{Incumbent runoff round share}
  \item{\code{I_*}}{First round aggregated counts of all polling station data}
  \item{\code{II_*}}{Runoff round aggregated counts of all polling station data}
-}}
+}
+}
 \source{
 \url{https://prezydent2015.pkw.gov.pl/319_Pierwsze_glosowanie}, \url{https://prezydent2015.pkw.gov.pl/325_Ponowne_glosowanie}, \url{http://www.codgik.gov.pl/index.php/darmowe-dane/prg.html}
 }

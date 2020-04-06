@@ -4,7 +4,9 @@
 \name{zion_points}
 \alias{zion_points}
 \title{Point vector data}
-\format{A sf object}
+\format{
+A sf object
+}
 \usage{
 zion_points
 }
