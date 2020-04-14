@@ -21,7 +21,7 @@ addToDrat(){
     repodir = '.', \
     commit='Travis update $PKG_REPO: build $TRAVIS_BUILD_NUMBER')"
 
-  git push
+  git push origin gh-pages "https://$GH_TOKEN@github.com/nowosad/drat.git"
 
 }
 
