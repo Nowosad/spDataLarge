@@ -1,7 +1,9 @@
 # spDataLarge
 
+  <!-- badges: start -->
 [![Build
 Status](https://travis-ci.org/Nowosad/spDataLarge.png?branch=master)](https://travis-ci.org/Nowosad/spDataLarge)
+  <!-- badges: end -->
 
 Large datasets for spatial analysis. 
 The data from this package could be retrived using the **spData** package.

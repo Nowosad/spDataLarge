@@ -4,3 +4,4 @@ inst/data/
 ^data-raw$
 ^\.travis\.yml$
 deploy.sh
+^\.github$
