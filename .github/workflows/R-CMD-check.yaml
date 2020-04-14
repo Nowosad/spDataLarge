@@ -1,0 +1,35 @@
+on: [push, pull_request]
+
+name: R-CMD-check
+
+jobs:
+  R-CMD-check:
+    name: Build packages on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+      - name: Install dependencies
+        run: |
+          install.packages(c("remotes", "rcmdcheck"))
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+      - name: Check
+        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
+        shell: Rscript {0}
+      - name: Update DRAT
+        run: |
+          mkdir drat; cd drat
+          git init
+          git config user.name "jn"
+          git config user.email "tupiszakaczki@gmail.com"
+          git config --global push.default simple
+
+          ## Get drat repo
+          git remote add upstream "https://$GH_TOKEN@github.com/nowosad/drat.git"
+          git fetch upstream 2>err.txt
+          git checkout gh-pages
+          Rscript -e "drat::insertPackage('$PKG_REPO/$PKG_TARBALL', repodir = '.', commit='Drat update')"
+      - name: Push results
+        run: |
+          git push https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/nowosad/drat.git HEAD:${{ github.ref }} || echo "No changes to commit"
