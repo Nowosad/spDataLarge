@@ -11,7 +11,7 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - name: Install dependencies
         run: |
-          install.packages(c("drat", remotes", "rcmdcheck"))
+          install.packages(c("drat", "remotes", "rcmdcheck"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
       - name: Check
