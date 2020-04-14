@@ -13,5 +13,5 @@ Imports:
 License: CC0
 RoxygenNote: 7.1.0
 LazyData: true
-URL: https://github.com/Nowosad/spDataLarge
+URL: https://github.com/Nowosad/spData
 BugReports: https://github.com/Nowosad/spDataLarge/issues
