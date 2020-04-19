@@ -15,7 +15,7 @@ There are three possible options:
 1. Installation of all of the required packages using:
 
 ```r
-devtools::install_github("robinlovelace/geocompr")
+devtools::install_github("geocompr/geocompkg")
 ```
 
 2. Installation of **spDataLarge** after loading **spData**:
