@@ -13,3 +13,4 @@ RoxygenNote: 6.1.1
 LazyData: true
 URL: https://github.com/Nowosad/spDataLarge
 BugReports: https://github.com/Nowosad/spDataLarge/issues
+Encoding: UTF-8
