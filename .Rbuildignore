@@ -5,3 +5,6 @@ inst/data/
 ^\.travis\.yml$
 deploy.sh
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
