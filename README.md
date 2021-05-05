@@ -1,8 +1,8 @@
 # spDataLarge
 
   <!-- badges: start -->
-[![Build
-Status](https://travis-ci.org/Nowosad/spDataLarge.png?branch=master)](https://travis-ci.org/Nowosad/spDataLarge)
+[![GitHub action build
+status](https://github.com/Nowosad/spDataLarge/workflows/pkgdown/badge.svg)](https://github.com/Nowosad/spDataLarge/actions)
   <!-- badges: end -->
 
 Large datasets for spatial analysis. 
