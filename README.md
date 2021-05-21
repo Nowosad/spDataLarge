@@ -6,13 +6,13 @@ status](https://github.com/Nowosad/spDataLarge/workflows/pkgdown/badge.svg)](htt
   <!-- badges: end -->
 
 Large datasets for spatial analysis. 
-The data from this package could be retrived using the **spData** package.
+The data from this package could be retrieved using the **spData** package.
 
 ## Installation
 
 There are three possible options:
 
-1. Installation of all of the required packages using:
+1. Installation of all of the required packages used in [the Geocomputation with R book](https://geocompr.github.io/) using:
 
 ```r
 devtools::install_github("geocompr/geocompkg")
@@ -26,7 +26,7 @@ library(spData)
 install.packages("spDataLarge")
 ```
 
-3. Installation of **spDataLarge** using drat location:
+3. Installation of **spDataLarge** using its drat location:
 
 ```r
 install.packages("spDataLarge", repos = "https://nowosad.github.io/drat/", type = "source")
