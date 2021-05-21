@@ -14,7 +14,7 @@ A RasterLayer object
 nz_elev
 }
 \description{
-Elevation raster data of the New Zeleand area from the Mapzen Terrain Service.
+Elevation raster data of the New Zealand area from the Mapzen Terrain Service.
 For teaching purposes only
 }
 \seealso{

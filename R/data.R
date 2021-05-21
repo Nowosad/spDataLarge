@@ -37,7 +37,7 @@
 
 #' New Zeleand elevation raster data
 #'
-#' Elevation raster data of the New Zeleand area from the Mapzen Terrain Service.
+#' Elevation raster data of the New Zealand area from the Mapzen Terrain Service.
 #' For teaching purposes only
 #'
 #' @format A RasterLayer object
