@@ -36,3 +36,16 @@ NULL
 #'
 #' @source \url{https://www.mrlc.gov/nlcd2011.php}
 NULL
+
+#' Dataset nlcd
+#'
+#' This is a dataset containing a simplified version of the National Land Cover Database 2011 product for
+#' the Zion National Park area
+#'
+#' @format A geotiff file
+#'
+#' @name nlcd
+#'
+#'
+#' @source \url{https://www.mrlc.gov/nlcd2011.php}
+NULL
