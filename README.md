@@ -12,18 +12,16 @@ The data from this package could be retrieved using the **spData** package.
 
 There are three possible options:
 
-1. Installation of all of the required packages used in [the Geocomputation with R book](https://geocompr.github.io/) using:
+1. Installation of **spDataLarge** using its drat location:
+
+```r
+install.packages("spDataLarge", repos = "https://geocompr.r-universe.dev")
+```
+
+2. Installation of all of the required packages used in [the Geocomputation with R book](https://geocompr.github.io/) using:
 
 ```r
 devtools::install_github("geocompr/geocompkg")
-```
-
-2. Installation of **spDataLarge** after loading **spData**:
-
-```r
-library(spData)
-# and next
-install.packages("spDataLarge")
 ```
 
 3. Installation of **spDataLarge** using its drat location:
