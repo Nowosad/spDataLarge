@@ -12,7 +12,7 @@ The data from this package could be retrieved using the **spData** package.
 
 There are three possible options:
 
-1. Installation of **spDataLarge** using its drat location:
+1. Installation of **spDataLarge** using its r-universe location:
 
 ```r
 install.packages("spDataLarge", repos = "https://geocompr.r-universe.dev")
