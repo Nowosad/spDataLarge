@@ -73,7 +73,7 @@ See http://geocompr.robinlovelace.net/spatial-cv.html for details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spDataLarge</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@ See <a href='http://geocompr.robinlovelace.net/spatial-cv.html'>http://geocompr.
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Landslide dataset of the RSAGA package: <code><a href='https://rdrr.io/r/utils/data.html'>data("landslides", package = "RSAGA")</a></code>.</p>
+    <p>Landslide dataset of the RSAGA package: <code>data("landslides", package = "RSAGA")</code>.</p>
 <p><strong>DEM:</strong></p>
 <p>Ungerechts, L. (2010): DEM 10m (triangulated from aerial photo - b/w).
   Available online:</p>
@@ -150,63 +150,63 @@ See <a href='http://geocompr.robinlovelace.net/spatial-cv.html'>http://geocompr.
   Erlangen-Nuremberg, Germany.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>RQGIS</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>sf</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rspatial.org/raster'>raster</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>tidyverse</span><span class='op'>)</span>
-<span class='co'># attach data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"landslides"</span>, package <span class='op'>=</span> <span class='st'>"RSAGA"</span><span class='op'>)</span>
-<span class='co'># landslide points</span>
-<span class='va'>non_pts</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>landslides</span>, <span class='va'>lslpts</span> <span class='op'>==</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='co'># select landslide points</span>
-<span class='va'>lsl_pts</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>landslides</span>, <span class='va'>lslpts</span> <span class='op'>==</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='co'># randomly select 175 non-landslide points</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>11042018</span><span class='op'>)</span>
-<span class='va'>non_pts_sub</span> <span class='op'>=</span> <span class='fu'>sample_n</span><span class='op'>(</span><span class='va'>non_pts</span>, size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/ncell.html'>nrow</a></span><span class='op'>(</span><span class='va'>lsl_pts</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># create smaller landslide dataset (lsl)</span>
-<span class='va'>lsl</span> <span class='op'>=</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>non_pts_sub</span>, <span class='va'>lsl_pts</span><span class='op'>)</span>
-<span class='co'># digital elevation model</span>
-<span class='va'>dem</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='va'>dem</span><span class='op'>$</span><span class='va'>data</span>,
-             crs <span class='op'>=</span> <span class='st'>"+proj=utm +zone=17 +south +datum=WGS84 +units=m +no_defs"</span>,
-             xmn <span class='op'>=</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>xllcorner</span>,
-             xmx <span class='op'>=</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>xllcorner</span> <span class='op'>+</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>ncols</span> <span class='op'>*</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>cellsize</span>,
-             ymn <span class='op'>=</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>yllcorner</span>,
-             ymx <span class='op'>=</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>yllcorner</span> <span class='op'>+</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>nrows</span> <span class='op'>*</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>cellsize</span><span class='op'>)</span>
-<span class='co'># create ta (terrain attributs)</span>
-<span class='co'># slope, aspect, curvatures</span>
-<span class='fu'>set_env</span><span class='op'>(</span>dev <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># using QGIS 2.18</span>
-<span class='fu'>find_algorithms</span><span class='op'>(</span><span class='st'>"curvature"</span><span class='op'>)</span>
-<span class='va'>alg</span> <span class='op'>=</span> <span class='st'>"saga:slopeaspectcurvature"</span>
-<span class='fu'>get_usage</span><span class='op'>(</span><span class='va'>alg</span><span class='op'>)</span>
-<span class='co'># terrain attributes (ta)</span>
-<span class='va'>out</span> <span class='op'>=</span> <span class='fu'>run_qgis</span><span class='op'>(</span><span class='va'>alg</span>, ELEVATION <span class='op'>=</span> <span class='va'>dem</span>, METHOD <span class='op'>=</span> <span class='fl'>6</span>, UNIT_SLOPE <span class='op'>=</span> <span class='st'>"degree"</span>,
-               UNIT_ASPECT <span class='op'>=</span> <span class='st'>"degree"</span>,
-               ASPECT <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"aspect.tif"</span><span class='op'>)</span>,
-               SLOPE <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"slope.tif"</span><span class='op'>)</span>,
-               C_PLAN <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"cplan.tif"</span><span class='op'>)</span>,
-               C_PROF <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"cprof.tif"</span><span class='op'>)</span>,
-               load_output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='co'># use brick because then the layers will be in memory and not on disk</span>
-<span class='va'>ta</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/brick.html'>brick</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span> <span class='op'>!=</span> <span class='st'>"ASPECT"</span><span class='op'>]</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>ta</span><span class='op'>)</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"slope"</span>, <span class='st'>"cplan"</span>, <span class='st'>"cprof"</span><span class='op'>)</span>
-<span class='co'># catchment area</span>
-<span class='fu'>find_algorithms</span><span class='op'>(</span><span class='st'>"[Cc]atchment"</span><span class='op'>)</span>
-<span class='va'>alg</span> <span class='op'>=</span> <span class='st'>"saga:flowaccumulationtopdown"</span>
-<span class='fu'>get_usage</span><span class='op'>(</span><span class='va'>alg</span><span class='op'>)</span>
-<span class='va'>carea</span> <span class='op'>=</span> <span class='fu'>run_qgis</span><span class='op'>(</span><span class='va'>alg</span>, ELEVATION <span class='op'>=</span> <span class='va'>dem</span>, METHOD <span class='op'>=</span> <span class='fl'>4</span>,
-                 FLOW <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"carea.tif"</span><span class='op'>)</span>,
-                 load_output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='co'># transform carea</span>
-<span class='va'>log10_carea</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span><span class='op'>(</span><span class='va'>carea</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>log10_carea</span><span class='op'>)</span> <span class='op'>=</span> <span class='st'>"log10_carea"</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>dem</span><span class='op'>)</span> <span class='op'>=</span> <span class='st'>"elev"</span>
-<span class='co'># add log_carea</span>
-<span class='va'>ta</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/addLayer.html'>addLayer</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ta</span>, <span class='va'>dem</span>, <span class='va'>log10_carea</span><span class='op'>)</span>
-<span class='co'># extract values to points, i.e., create predictors</span>
-<span class='va'>lsl</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>ta</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>=</span> <span class='fu'>raster</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/extract.html'>extract</a></span><span class='op'>(</span><span class='va'>ta</span>, <span class='va'>lsl</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>RQGIS</span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rspatial.org/raster'>raster</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># attach data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"landslides"</span>, package <span class='op'>=</span> <span class='st'>"RSAGA"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># landslide points</span></span>
+<span class='r-in'><span class='va'>non_pts</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>landslides</span>, <span class='va'>lslpts</span> <span class='op'>==</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># select landslide points</span></span>
+<span class='r-in'><span class='va'>lsl_pts</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>landslides</span>, <span class='va'>lslpts</span> <span class='op'>==</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># randomly select 175 non-landslide points</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>11042018</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>non_pts_sub</span> <span class='op'>=</span> <span class='fu'>sample_n</span><span class='op'>(</span><span class='va'>non_pts</span>, size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/ncell.html'>nrow</a></span><span class='op'>(</span><span class='va'>lsl_pts</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># create smaller landslide dataset (lsl)</span></span>
+<span class='r-in'><span class='va'>lsl</span> <span class='op'>=</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>non_pts_sub</span>, <span class='va'>lsl_pts</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># digital elevation model</span></span>
+<span class='r-in'><span class='va'>dem</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='va'>dem</span><span class='op'>$</span><span class='va'>data</span>,</span>
+<span class='r-in'>             crs <span class='op'>=</span> <span class='st'>"+proj=utm +zone=17 +south +datum=WGS84 +units=m +no_defs"</span>,</span>
+<span class='r-in'>             xmn <span class='op'>=</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>xllcorner</span>,</span>
+<span class='r-in'>             xmx <span class='op'>=</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>xllcorner</span> <span class='op'>+</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>ncols</span> <span class='op'>*</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>cellsize</span>,</span>
+<span class='r-in'>             ymn <span class='op'>=</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>yllcorner</span>,</span>
+<span class='r-in'>             ymx <span class='op'>=</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>yllcorner</span> <span class='op'>+</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>nrows</span> <span class='op'>*</span> <span class='va'>dem</span><span class='op'>$</span><span class='va'>header</span><span class='op'>$</span><span class='va'>cellsize</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># create ta (terrain attributs)</span></span>
+<span class='r-in'><span class='co'># slope, aspect, curvatures</span></span>
+<span class='r-in'><span class='fu'>set_env</span><span class='op'>(</span>dev <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># using QGIS 2.18</span></span>
+<span class='r-in'><span class='fu'>find_algorithms</span><span class='op'>(</span><span class='st'>"curvature"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>alg</span> <span class='op'>=</span> <span class='st'>"saga:slopeaspectcurvature"</span></span>
+<span class='r-in'><span class='fu'>get_usage</span><span class='op'>(</span><span class='va'>alg</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># terrain attributes (ta)</span></span>
+<span class='r-in'><span class='va'>out</span> <span class='op'>=</span> <span class='fu'>run_qgis</span><span class='op'>(</span><span class='va'>alg</span>, ELEVATION <span class='op'>=</span> <span class='va'>dem</span>, METHOD <span class='op'>=</span> <span class='fl'>6</span>, UNIT_SLOPE <span class='op'>=</span> <span class='st'>"degree"</span>,</span>
+<span class='r-in'>               UNIT_ASPECT <span class='op'>=</span> <span class='st'>"degree"</span>,</span>
+<span class='r-in'>               ASPECT <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"aspect.tif"</span><span class='op'>)</span>,</span>
+<span class='r-in'>               SLOPE <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"slope.tif"</span><span class='op'>)</span>,</span>
+<span class='r-in'>               C_PLAN <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"cplan.tif"</span><span class='op'>)</span>,</span>
+<span class='r-in'>               C_PROF <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"cprof.tif"</span><span class='op'>)</span>,</span>
+<span class='r-in'>               load_output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># use brick because then the layers will be in memory and not on disk</span></span>
+<span class='r-in'><span class='va'>ta</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/brick.html'>brick</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span> <span class='op'>!=</span> <span class='st'>"ASPECT"</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>ta</span><span class='op'>)</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"slope"</span>, <span class='st'>"cplan"</span>, <span class='st'>"cprof"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># catchment area</span></span>
+<span class='r-in'><span class='fu'>find_algorithms</span><span class='op'>(</span><span class='st'>"[Cc]atchment"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>alg</span> <span class='op'>=</span> <span class='st'>"saga:flowaccumulationtopdown"</span></span>
+<span class='r-in'><span class='fu'>get_usage</span><span class='op'>(</span><span class='va'>alg</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>carea</span> <span class='op'>=</span> <span class='fu'>run_qgis</span><span class='op'>(</span><span class='va'>alg</span>, ELEVATION <span class='op'>=</span> <span class='va'>dem</span>, METHOD <span class='op'>=</span> <span class='fl'>4</span>,</span>
+<span class='r-in'>                 FLOW <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"carea.tif"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 load_output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># transform carea</span></span>
+<span class='r-in'><span class='va'>log10_carea</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span><span class='op'>(</span><span class='va'>carea</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>log10_carea</span><span class='op'>)</span> <span class='op'>=</span> <span class='st'>"log10_carea"</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>dem</span><span class='op'>)</span> <span class='op'>=</span> <span class='st'>"elev"</span></span>
+<span class='r-in'><span class='co'># add log_carea</span></span>
+<span class='r-in'><span class='va'>ta</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/addLayer.html'>addLayer</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ta</span>, <span class='va'>dem</span>, <span class='va'>log10_carea</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># extract values to points, i.e., create predictors</span></span>
+<span class='r-in'><span class='va'>lsl</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>ta</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>=</span> <span class='fu'>raster</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/extract.html'>extract</a></span><span class='op'>(</span><span class='va'>ta</span>, <span class='va'>lsl</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

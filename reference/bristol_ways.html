@@ -73,7 +73,7 @@ See http://geocompr.robinlovelace.net/transport.html for details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spDataLarge</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
       </span>
     </div>
 
@@ -130,95 +130,95 @@ See <a href='http://geocompr.robinlovelace.net/transport.html'>http://geocompr.r
     <p><a href='http://wicid.ukdataservice.ac.uk/'>http://wicid.ukdataservice.ac.uk/</a> and other open access sources</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>devtools</span><span class='fu'>::</span><span class='fu'>install_github</span><span class='op'>(</span><span class='st'>"ropensci/osmdata"</span><span class='op'>)</span>
-<span class='fu'>devtools</span><span class='fu'>::</span><span class='fu'>install_github</span><span class='op'>(</span><span class='st'>"robinlovelace/ukboundaries"</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>osmdata</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>sf</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>tidyverse</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>ukboundaries</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>stplanr</span><span class='op'>)</span>
-<span class='va'>bristol_region</span> <span class='op'>=</span> <span class='fu'>getbb</span><span class='op'>(</span><span class='st'>"Bristol"</span>, format_out <span class='op'>=</span> <span class='st'>"sf_polygon"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>st_set_crs</span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>st_sf</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>Name <span class='op'>=</span> <span class='st'>"Bristol (OSM)"</span><span class='op'>)</span>, geometry <span class='op'>=</span> <span class='va'>.</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
-<span class='fu'>mapview</span><span class='fu'>::</span><span class='fu'>mapview</span><span class='op'>(</span><span class='va'>bristol_region</span><span class='op'>)</span>
-<span class='co'># usethisis::use_data(bristol_region, overwrite = TRUE)</span>
-<span class='va'>bristol_ttwa</span> <span class='op'>=</span> <span class='va'>ttwa_simple</span> <span class='op'>%&gt;%</span>
-        <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>ttwa11nm</span> <span class='op'>==</span> <span class='st'>"Bristol"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>select</span><span class='op'>(</span>Name <span class='op'>=</span> <span class='va'>ttwa11nm</span><span class='op'>)</span>
-<span class='va'>bristol_ttwa</span><span class='op'>$</span><span class='va'>Name</span> <span class='op'>=</span> <span class='st'>"Bristol (TTWA)"</span>
-<span class='fu'>mapview</span><span class='fu'>::</span><span class='fu'>mapview</span><span class='op'>(</span><span class='va'>bristol_ttwa</span><span class='op'>)</span>
-<span class='co'># usethisis::use_data(bristol_ttwa, overwrite = TRUE)</span>
-<span class='va'>bristol_cents</span> <span class='op'>=</span> <span class='fu'>st_centroid</span><span class='op'>(</span><span class='va'>msoa2011_vsimple</span><span class='op'>)</span><span class='op'>[</span><span class='va'>bristol_ttwa</span>, <span class='op'>]</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>bristol_cents</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
-<span class='va'>bristol_zones</span> <span class='op'>=</span> <span class='va'>msoa2011_vsimple</span><span class='op'>[</span><span class='va'>msoa2011_vsimple</span><span class='op'>$</span><span class='va'>msoa11cd</span> <span class='op'>%in%</span> <span class='va'>bristol_cents</span><span class='op'>$</span><span class='va'>msoa11cd</span>, <span class='op'>]</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>select</span><span class='op'>(</span>geo_code <span class='op'>=</span> <span class='va'>msoa11cd</span>, name <span class='op'>=</span> <span class='va'>msoa11nm</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>mutate_at</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='va'>as.character</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geometry</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='co'># Add travel data to the zones</span>
-<span class='co'># commented out - manual download from: http://wicid.ukdataservice.ac.uk/</span>
-<span class='co'># unzip("~/Downloads/wu03ew_v2.zip")</span>
-<span class='co'># od_all = read_csv("wu03ew_v2.csv")</span>
-<span class='co'># od_all_small = od_all %&gt;%</span>
-<span class='co'>#   filter(`Area of residence` %in% bristol_zones$geo_code &amp;</span>
-<span class='co'>#     `Area of workplace` %in% bristol_zones$geo_code,</span>
-<span class='co'>#       `All categories: Method of travel to work` &gt; 19)</span>
-<span class='co'># readr::write_csv(od_all_small, "od_all_small.csv")</span>
-<span class='co'># piggyback::pb_upload("od_all_small.csv")</span>
-<span class='co'># file.remove("wu03ew_v2.csv", "julyukrelease_tcm77-369384.xls")</span>
-<span class='va'>od_all</span> <span class='op'>=</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"https://github.com/Nowosad/spDataLarge/releases/download/0.2.7.3/od_all_small.csv"</span><span class='op'>)</span>
-<span class='va'>bristol_od</span> <span class='op'>=</span> <span class='va'>od_all</span> <span class='op'>%&gt;%</span>
-       <span class='fu'>select</span><span class='op'>(</span>o <span class='op'>=</span> <span class='va'>`Area of residence`</span>, d <span class='op'>=</span> <span class='va'>`Area of workplace`</span>,
-              all <span class='op'>=</span> <span class='va'>`All categories: Method of travel to work`</span>,
-              bicycle <span class='op'>=</span> <span class='va'>Bicycle</span>, foot <span class='op'>=</span> <span class='va'>`On foot`</span>,
-              car_driver <span class='op'>=</span> <span class='va'>`Driving a car or van`</span>, train <span class='op'>=</span> <span class='va'>Train</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-       <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>o</span> <span class='op'>%in%</span> <span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geo_code</span> <span class='op'>&amp;</span> <span class='va'>d</span> <span class='op'>%in%</span> <span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geo_code</span>, <span class='va'>all</span> <span class='op'>&gt;</span> <span class='fl'>19</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geo_code</span> <span class='op'>%in%</span> <span class='va'>bristol_od</span><span class='op'>$</span><span class='va'>d</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geo_code</span> <span class='op'>%in%</span> <span class='va'>bristol_od</span><span class='op'>$</span><span class='va'>o</span><span class='op'>)</span>
-<span class='co'># usethisis::use_data(bristol_zones, overwrite = TRUE)</span>
-<span class='co'># usethisis::use_data(bristol_od, overwrite = TRUE)</span>
-<span class='va'>od_intra</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>bristol_od</span>, <span class='va'>o</span> <span class='op'>==</span> <span class='va'>d</span><span class='op'>)</span>
-<span class='va'>od_inter</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>bristol_od</span>, <span class='va'>o</span> <span class='op'>!=</span> <span class='va'>d</span><span class='op'>)</span>
-<span class='va'>desire_lines</span> <span class='op'>=</span> <span class='fu'>od2line</span><span class='op'>(</span><span class='va'>od_inter</span>, <span class='va'>bristol_zones</span><span class='op'>)</span>
-<span class='va'>desire_lines</span><span class='op'>$</span><span class='va'>distance</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'>st_length</span><span class='op'>(</span><span class='va'>desire_lines</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>desire_carshort</span> <span class='op'>=</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'>filter</span><span class='op'>(</span><span class='va'>desire_lines</span>, <span class='va'>car_driver</span> <span class='op'>&gt;</span> <span class='fl'>300</span> <span class='op'>&amp;</span> <span class='va'>distance</span> <span class='op'>&lt;</span> <span class='fl'>5000</span><span class='op'>)</span>
-<span class='va'>route_carshort</span> <span class='op'>=</span> <span class='fu'>stplanr</span><span class='fu'>::</span><span class='fu'>line2route</span><span class='op'>(</span><span class='va'>desire_carshort</span>, route_fun <span class='op'>=</span> <span class='va'>route_osrm</span><span class='op'>)</span>
-<span class='va'>route_carshort</span> <span class='op'>=</span> <span class='fu'>st_as_sf</span><span class='op'>(</span><span class='va'>route_carshort</span><span class='op'>)</span>
-<span class='co'># usethisis::use_data(route_carshort, overwrite = TRUE)</span>
-<span class='va'>bb</span> <span class='op'>=</span> <span class='fu'>st_bbox</span><span class='op'>(</span><span class='va'>bristol_ttwa</span><span class='op'>)</span>
-<span class='va'>ways_road</span> <span class='op'>=</span> <span class='fu'>opq</span><span class='op'>(</span>bbox <span class='op'>=</span> <span class='va'>bb</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>add_osm_feature</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"highway"</span>,
-                        value <span class='op'>=</span> <span class='st'>"motorway|cycle|primary|secondary"</span>,
-                        value_exact <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>osmdata_sf</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>ways_rail</span> <span class='op'>=</span> <span class='fu'>opq</span><span class='op'>(</span>bbox <span class='op'>=</span> <span class='va'>bb</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>add_osm_feature</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"railway"</span>, value <span class='op'>=</span> <span class='st'>"rail"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>osmdata_sf</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>res</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>ways_road</span>, <span class='va'>ways_rail</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
-<span class='va'>bristol_stations</span> <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>osm_points</span> <span class='op'>%&gt;%</span>
-        <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>railway</span> <span class='op'>==</span> <span class='st'>"station"</span> <span class='op'>|</span> <span class='va'>name</span> <span class='op'>==</span> <span class='st'>"Bristol Temple Meads"</span><span class='op'>)</span>
-<span class='co'># most important vars:</span>
-<span class='fu'>map_int</span><span class='op'>(</span><span class='va'>bristol_stations</span>, <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>bristol_stations</span> <span class='op'>=</span> <span class='va'>bristol_stations</span> <span class='op'>%&gt;%</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span>
-<span class='co'># usethisis::use_data(bristol_stations, overwrite = TRUE)</span>
-<span class='va'>ways</span> <span class='op'>=</span> <span class='fu'>st_intersection</span><span class='op'>(</span><span class='va'>res</span><span class='op'>$</span><span class='va'>osm_lines</span>, <span class='va'>bristol_ttwa</span><span class='op'>)</span>
-<span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span><span class='op'>)</span>
-<span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span><span class='op'>[</span><span class='va'>ways</span><span class='op'>$</span><span class='va'>railway</span> <span class='op'>==</span> <span class='st'>"rail"</span><span class='op'>]</span> <span class='op'>=</span> <span class='st'>"rail"</span>
-<span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"_link"</span>, <span class='st'>""</span>, x <span class='op'>=</span> <span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"motorway|primary|secondary"</span>, <span class='st'>"road"</span>, x <span class='op'>=</span> <span class='va'>.</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-        <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>ways</span> <span class='op'>=</span> <span class='va'>ways</span> <span class='op'>%&gt;%</span>
-        <span class='fu'>select</span><span class='op'>(</span><span class='va'>highway</span>, <span class='va'>maxspeed</span>, <span class='va'>ref</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>st_geometry_type</span><span class='op'>(</span><span class='va'>ways</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># convert to linestring</span>
-<span class='va'>bristol_ways</span> <span class='op'>=</span> <span class='fu'>st_cast</span><span class='op'>(</span><span class='va'>ways</span>, <span class='st'>"LINESTRING"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>st_geometry</span><span class='op'>(</span><span class='va'>bristol_ways</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># usethisis::use_data(bristol_ways, overwrite = TRUE)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'>devtools</span><span class='fu'>::</span><span class='fu'>install_github</span><span class='op'>(</span><span class='st'>"ropensci/osmdata"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>devtools</span><span class='fu'>::</span><span class='fu'>install_github</span><span class='op'>(</span><span class='st'>"robinlovelace/ukboundaries"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://docs.ropensci.org/osmdata/'>osmdata</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>ukboundaries</span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://docs.ropensci.org/stplanr'>stplanr</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>bristol_region</span> <span class='op'>=</span> <span class='fu'>getbb</span><span class='op'>(</span><span class='st'>"Bristol"</span>, format_out <span class='op'>=</span> <span class='st'>"sf_polygon"</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>st_set_crs</span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>st_sf</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>Name <span class='op'>=</span> <span class='st'>"Bristol (OSM)"</span><span class='op'>)</span>, geometry <span class='op'>=</span> <span class='va'>.</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>mapview</span><span class='fu'>::</span><span class='fu'>mapview</span><span class='op'>(</span><span class='va'>bristol_region</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># usethisis::use_data(bristol_region, overwrite = TRUE)</span></span>
+<span class='r-in'><span class='va'>bristol_ttwa</span> <span class='op'>=</span> <span class='va'>ttwa_simple</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>ttwa11nm</span> <span class='op'>==</span> <span class='st'>"Bristol"</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>select</span><span class='op'>(</span>Name <span class='op'>=</span> <span class='va'>ttwa11nm</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>bristol_ttwa</span><span class='op'>$</span><span class='va'>Name</span> <span class='op'>=</span> <span class='st'>"Bristol (TTWA)"</span></span>
+<span class='r-in'><span class='fu'>mapview</span><span class='fu'>::</span><span class='fu'>mapview</span><span class='op'>(</span><span class='va'>bristol_ttwa</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># usethisis::use_data(bristol_ttwa, overwrite = TRUE)</span></span>
+<span class='r-in'><span class='va'>bristol_cents</span> <span class='op'>=</span> <span class='fu'>st_centroid</span><span class='op'>(</span><span class='va'>msoa2011_vsimple</span><span class='op'>)</span><span class='op'>[</span><span class='va'>bristol_ttwa</span>, <span class='op'>]</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>bristol_cents</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>bristol_zones</span> <span class='op'>=</span> <span class='va'>msoa2011_vsimple</span><span class='op'>[</span><span class='va'>msoa2011_vsimple</span><span class='op'>$</span><span class='va'>msoa11cd</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>bristol_cents</span><span class='op'>$</span><span class='va'>msoa11cd</span>, <span class='op'>]</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>select</span><span class='op'>(</span>geo_code <span class='op'>=</span> <span class='va'>msoa11cd</span>, name <span class='op'>=</span> <span class='va'>msoa11nm</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>mutate_at</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='va'>as.character</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geometry</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Add travel data to the zones</span></span>
+<span class='r-in'><span class='co'># commented out - manual download from: http://wicid.ukdataservice.ac.uk/</span></span>
+<span class='r-in'><span class='co'># unzip("~/Downloads/wu03ew_v2.zip")</span></span>
+<span class='r-in'><span class='co'># od_all = read_csv("wu03ew_v2.csv")</span></span>
+<span class='r-in'><span class='co'># od_all_small = od_all %&gt;%</span></span>
+<span class='r-in'><span class='co'>#   filter(`Area of residence` %in% bristol_zones$geo_code &amp;</span></span>
+<span class='r-in'><span class='co'>#     `Area of workplace` %in% bristol_zones$geo_code,</span></span>
+<span class='r-in'><span class='co'>#       `All categories: Method of travel to work` &gt; 19)</span></span>
+<span class='r-in'><span class='co'># readr::write_csv(od_all_small, "od_all_small.csv")</span></span>
+<span class='r-in'><span class='co'># piggyback::pb_upload("od_all_small.csv")</span></span>
+<span class='r-in'><span class='co'># file.remove("wu03ew_v2.csv", "julyukrelease_tcm77-369384.xls")</span></span>
+<span class='r-in'><span class='va'>od_all</span> <span class='op'>=</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"https://github.com/Nowosad/spDataLarge/releases/download/0.2.7.3/od_all_small.csv"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>bristol_od</span> <span class='op'>=</span> <span class='va'>od_all</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>       <span class='fu'>select</span><span class='op'>(</span>o <span class='op'>=</span> <span class='va'>`Area of residence`</span>, d <span class='op'>=</span> <span class='va'>`Area of workplace`</span>,</span>
+<span class='r-in'>              all <span class='op'>=</span> <span class='va'>`All categories: Method of travel to work`</span>,</span>
+<span class='r-in'>              bicycle <span class='op'>=</span> <span class='va'>Bicycle</span>, foot <span class='op'>=</span> <span class='va'>`On foot`</span>,</span>
+<span class='r-in'>              car_driver <span class='op'>=</span> <span class='va'>`Driving a car or van`</span>, train <span class='op'>=</span> <span class='va'>Train</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>       <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>o</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geo_code</span> <span class='op'>&amp;</span> <span class='va'>d</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geo_code</span>, <span class='va'>all</span> <span class='op'>&gt;</span> <span class='fl'>19</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geo_code</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>bristol_od</span><span class='op'>$</span><span class='va'>d</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>bristol_zones</span><span class='op'>$</span><span class='va'>geo_code</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>bristol_od</span><span class='op'>$</span><span class='va'>o</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># usethisis::use_data(bristol_zones, overwrite = TRUE)</span></span>
+<span class='r-in'><span class='co'># usethisis::use_data(bristol_od, overwrite = TRUE)</span></span>
+<span class='r-in'><span class='va'>od_intra</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>bristol_od</span>, <span class='va'>o</span> <span class='op'>==</span> <span class='va'>d</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>od_inter</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>bristol_od</span>, <span class='va'>o</span> <span class='op'>!=</span> <span class='va'>d</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>desire_lines</span> <span class='op'>=</span> <span class='fu'>od2line</span><span class='op'>(</span><span class='va'>od_inter</span>, <span class='va'>bristol_zones</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>desire_lines</span><span class='op'>$</span><span class='va'>distance</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'>st_length</span><span class='op'>(</span><span class='va'>desire_lines</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>desire_carshort</span> <span class='op'>=</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'>filter</span><span class='op'>(</span><span class='va'>desire_lines</span>, <span class='va'>car_driver</span> <span class='op'>&gt;</span> <span class='fl'>300</span> <span class='op'>&amp;</span> <span class='va'>distance</span> <span class='op'>&lt;</span> <span class='fl'>5000</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>route_carshort</span> <span class='op'>=</span> <span class='fu'>stplanr</span><span class='fu'>::</span><span class='fu'>line2route</span><span class='op'>(</span><span class='va'>desire_carshort</span>, route_fun <span class='op'>=</span> <span class='va'>route_osrm</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>route_carshort</span> <span class='op'>=</span> <span class='fu'>st_as_sf</span><span class='op'>(</span><span class='va'>route_carshort</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># usethisis::use_data(route_carshort, overwrite = TRUE)</span></span>
+<span class='r-in'><span class='va'>bb</span> <span class='op'>=</span> <span class='fu'>st_bbox</span><span class='op'>(</span><span class='va'>bristol_ttwa</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ways_road</span> <span class='op'>=</span> <span class='fu'>opq</span><span class='op'>(</span>bbox <span class='op'>=</span> <span class='va'>bb</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>add_osm_feature</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"highway"</span>,</span>
+<span class='r-in'>                        value <span class='op'>=</span> <span class='st'>"motorway|cycle|primary|secondary"</span>,</span>
+<span class='r-in'>                        value_exact <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>osmdata_sf</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ways_rail</span> <span class='op'>=</span> <span class='fu'>opq</span><span class='op'>(</span>bbox <span class='op'>=</span> <span class='va'>bb</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>add_osm_feature</span><span class='op'>(</span>key <span class='op'>=</span> <span class='st'>"railway"</span>, value <span class='op'>=</span> <span class='st'>"rail"</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>osmdata_sf</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>res</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>ways_road</span>, <span class='va'>ways_rail</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>bristol_stations</span> <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>osm_points</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>railway</span> <span class='op'>==</span> <span class='st'>"station"</span> <span class='op'>|</span> <span class='va'>name</span> <span class='op'>==</span> <span class='st'>"Bristol Temple Meads"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># most important vars:</span></span>
+<span class='r-in'><span class='fu'>map_int</span><span class='op'>(</span><span class='va'>bristol_stations</span>, <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>bristol_stations</span> <span class='op'>=</span> <span class='va'>bristol_stations</span> <span class='op'>%&gt;%</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># usethisis::use_data(bristol_stations, overwrite = TRUE)</span></span>
+<span class='r-in'><span class='va'>ways</span> <span class='op'>=</span> <span class='fu'>st_intersection</span><span class='op'>(</span><span class='va'>res</span><span class='op'>$</span><span class='va'>osm_lines</span>, <span class='va'>bristol_ttwa</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span><span class='op'>[</span><span class='va'>ways</span><span class='op'>$</span><span class='va'>railway</span> <span class='op'>==</span> <span class='st'>"rail"</span><span class='op'>]</span> <span class='op'>=</span> <span class='st'>"rail"</span></span>
+<span class='r-in'><span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"_link"</span>, <span class='st'>""</span>, x <span class='op'>=</span> <span class='va'>ways</span><span class='op'>$</span><span class='va'>highway</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"motorway|primary|secondary"</span>, <span class='st'>"road"</span>, x <span class='op'>=</span> <span class='va'>.</span><span class='op'>)</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ways</span> <span class='op'>=</span> <span class='va'>ways</span> <span class='op'>%&gt;%</span></span>
+<span class='r-in'>        <span class='fu'>select</span><span class='op'>(</span><span class='va'>highway</span>, <span class='va'>maxspeed</span>, <span class='va'>ref</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>st_geometry_type</span><span class='op'>(</span><span class='va'>ways</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># convert to linestring</span></span>
+<span class='r-in'><span class='va'>bristol_ways</span> <span class='op'>=</span> <span class='fu'>st_cast</span><span class='op'>(</span><span class='va'>ways</span>, <span class='st'>"LINESTRING"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>st_geometry</span><span class='op'>(</span><span class='va'>bristol_ways</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># usethisis::use_data(bristol_ways, overwrite = TRUE)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
