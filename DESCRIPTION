@@ -13,6 +13,7 @@ Imports:
 License: CC0
 RoxygenNote: 7.1.2
 LazyData: true
+LazyDataCompression: bzip2
 URL: https://github.com/Nowosad/spData
 BugReports: https://github.com/Nowosad/spDataLarge/issues
 Encoding: UTF-8
