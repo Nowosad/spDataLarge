@@ -1,4 +1,4 @@
-# Filename: 06_lsl.R (2018-04-18)
+# Filename: 07_lsl.R (2022-02-16)
 #
 # TO DO: Create terrain attribute raster and extract corresponding values to
 #        points
