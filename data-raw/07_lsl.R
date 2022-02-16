@@ -87,8 +87,8 @@ names(log10_carea) = "log10_carea"
 # add log_carea and dem to the terrain attributes
 ta = c(ta, elev = dem, log10_carea)
 # extract values to points, i.e., create predictors
-lsl[, names(ta)] = raster::extract(ta, lsl[, c("x", "y")])
+lsl[, names(ta)] = terra::extract(ta, lsl[, c("x", "y")])[, names(ta)]
 # save data to the data folder of the package
 usethis::use_data(lsl, overwrite = TRUE)
 terra::writeRaster(ta, filename = "inst/raster/ta.tif", overwrite = TRUE,
-                   datatype = "INT2U", gdal = c("COMPRESS=DEFLATE"))
+                   datatype = "FLT4S", gdal = c("COMPRESS=DEFLATE"))
