@@ -35,8 +35,7 @@
 #' @format A geotiff file with the five terrain attribute layers: slope, plan
 #'   curvature, profile curvature, elevation and catchment area.
 #'
-#' @examples
-#' terra::rast(system.file("raster/ta.tif", package = "spDataLarge"))
+#' @examples system.file("raster/ta.tif", package = "spDataLarge")
 #' @name ta.tif
 #' @seealso \code{?lsl}
 #' @source DEM dataset of the RSAGA package: \code{data("landslides",

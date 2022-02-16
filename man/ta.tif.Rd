@@ -8,7 +8,7 @@ A geotiff file with the five terrain attribute layers: slope, plan
   curvature, profile curvature, elevation and catchment area.
 }
 \source{
-Landslide dataset of the RSAGA package: \code{data("landslides",
+DEM dataset of the RSAGA package: \code{data("landslides",
   package = "RSAGA")}.
 
 \strong{DEM:}
@@ -28,7 +28,7 @@ Data used in the "Statistical learning for geographic data" chapter in Geocomput
 See \url{http://geocompr.robinlovelace.net/spatial-cv.html} for details.
 }
 \examples{
-terra::rast(system.file("raster/ta.tif", package = "spDataLarge"))
+system.file("raster/ta.tif", package = "spDataLarge")
 }
 \seealso{
 \code{?lsl}
