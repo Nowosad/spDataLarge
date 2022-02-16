@@ -19,7 +19,7 @@
 # attach packages
 library(qgisprocess)
 library(sf)
-library(raster)
+library(terra)
 library(dplyr)
 
 # attach data
@@ -39,15 +39,17 @@ non_pts_sub = sample_n(non_pts, size = nrow(lsl_pts))
 # create smaller landslide dataset (lsl)
 lsl = bind_rows(non_pts_sub, lsl_pts)
 # create raster object from dem
-dem = raster(
-        dem$data,
+dem = rast(
+        vals = dem$data,
+        nrows = dem$header$nrows,
+        ncols = dem$header$ncols,
         crs = "+proj=utm +zone=17 +south +datum=WGS84 +units=m +no_defs",
-        xmn = dem$header$xllcorner,
-        xmx = dem$header$xllcorner + dem$header$ncols * dem$header$cellsize,
-        ymn = dem$header$yllcorner,
-        ymx = dem$header$yllcorner + dem$header$nrows * dem$header$cellsize
+        xmin = dem$header$xllcorner,
+        xmax = dem$header$xllcorner + dem$header$ncols * dem$header$cellsize,
+        ymin = dem$header$yllcorner,
+        ymax = dem$header$yllcorner + dem$header$nrows * dem$header$cellsize,
+        names = "elev"
         )
-names(dem) = "elev"
 # create ta (terrain attributs)
 # slope, aspect, curvatures
 algs = qgisprocess::qgis_algorithms()
@@ -65,8 +67,7 @@ out = qgis_run_algorithm(alg, ELEVATION = dem, METHOD = 6,
                          .quiet = TRUE
 )
 # use brick because then the layers will be in memory and not on disk
-ta = raster::brick(lapply(out[names(args)], \(x) x[1]))
-names(ta) = c("slope", "cplan", "cprof")
+ta = rast(vapply(out[names(args)], \(x) x[1], FUN.VALUE = character(1)))
 # catchment area
 dplyr::filter(algs, grepl("[Cc]atchment", algorithm))
 # in the first geocompr edition we used saga::flowaccumulationtopdown instead of
@@ -79,15 +80,15 @@ carea = qgis_run_algorithm(alg,
                            METHOD = 4,
                            FLOW = file.path(tempdir(), "carea.sdat"))
 # transform carea
-carea = raster(carea$FLOW[1])
+carea = rast(carea$FLOW[1])
 log10_carea = log10(carea)
 names(log10_carea) = "log10_carea"
 
 # add log_carea and dem to the terrain attributes
-ta = addLayer(x = ta, elev = dem, log10_carea)
+ta = c(ta, elev = dem, log10_carea)
 # extract values to points, i.e., create predictors
 lsl[, names(ta)] = raster::extract(ta, lsl[, c("x", "y")])
 # save data to the data folder of the package
 usethis::use_data(lsl, overwrite = TRUE)
-writeRaster(ta, filename = "inst/raster/ta.tif", overwrite = TRUE,
-            datatype = "INT2U", options = c("COMPRESS=DEFLATE"))
+terra::writeRaster(ta, filename = "inst/raster/ta.tif", overwrite = TRUE,
+                   datatype = "INT2U", gdal = c("COMPRESS=DEFLATE"))
