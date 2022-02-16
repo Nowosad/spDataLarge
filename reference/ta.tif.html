@@ -18,7 +18,7 @@ See http://geocompr.robinlovelace.net/spatial-cv.html for details.'><!-- mathjax
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spDataLarge</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.5</span>
       </span>
     </div>
 
@@ -59,7 +59,7 @@ See <a href="http://geocompr.robinlovelace.net/spatial-cv.html" class="external-
     </div>
     <div id="source">
     <h2>Source</h2>
-    <p>Landslide dataset of the RSAGA package: <code>data("landslides",
+    <p>DEM dataset of the RSAGA package: <code>data("landslides",
   package = "RSAGA")</code>.</p>
 <p><strong>DEM:</strong></p>
 <p>Ungerechts, L. (2010): DEM 10m (triangulated from aerial photo - b/w).
@@ -77,16 +77,8 @@ See <a href="http://geocompr.robinlovelace.net/spatial-cv.html" class="external-
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"raster/ta.tif"</span>, package <span class="op">=</span> <span class="st">"spDataLarge"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class       : SpatRaster </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dimensions  : 415, 383, 5  (nrow, ncol, nlyr)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 10, 10  (x, y)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 711962.7, 715792.7, 9556862, 9561012  (xmin, xmax, ymin, ymax)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : WGS 84 / UTM zone 17S (EPSG:32717) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> source      : ta.tif </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> names       :        slope,        cplan,        cprof,         elev,  log10_carea </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> min values  :    0.0000000,  -25.6975365,   -0.3194027, 1711.2040000,    2.0000000 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> max values  :   76.1737671,    4.2673664,    0.1368342, 3164.1650000,    5.7339152 </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"raster/ta.tif"</span>, package <span class="op">=</span> <span class="st">"spDataLarge"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/Users/runner/work/_temp/Library/spDataLarge/raster/ta.tif"</span>
 </code></pre></div>
     </div>
   </div>
