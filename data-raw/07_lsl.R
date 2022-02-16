@@ -17,10 +17,11 @@
 #**********************************************************
 
 # attach packages
-library(RQGIS)
+library(qgisprocess)
 library(sf)
 library(raster)
-library(tidyverse)
+library(dplyr)
+
 # attach data
 data("landslides", package = "RSAGA")
 
@@ -46,38 +47,47 @@ dem = raster(
         ymn = dem$header$yllcorner,
         ymx = dem$header$yllcorner + dem$header$nrows * dem$header$cellsize
         )
+names(dem) = "elev"
 # create ta (terrain attributs)
 # slope, aspect, curvatures
-set_env(dev = FALSE)  # using QGIS 2.18
-find_algorithms("curvature")
+algs = qgisprocess::qgis_algorithms()
+dplyr::filter(algs, grepl("curvature", algorithm))
 alg = "saga:slopeaspectcurvature"
-get_usage(alg)
+qgisprocess::qgis_show_help(alg)
 # terrain attributes (ta)
-out = run_qgis(alg, ELEVATION = dem, METHOD = 6, UNIT_SLOPE = "degree",
-               UNIT_ASPECT = "degree",
-               ASPECT = file.path(tempdir(), "aspect.tif"),
-               SLOPE = file.path(tempdir(), "slope.tif"),
-               C_PLAN = file.path(tempdir(), "cplan.tif"),
-               C_PROF = file.path(tempdir(), "cprof.tif"),
-               load_output = TRUE)
+out_nms = paste0(tempdir(), "/", c("slope", "cplan", "cprof"),
+                 ".sdat")
+args = rlang::set_names(out_nms, c("SLOPE", "C_PLAN", "C_PROF"))
+out = qgis_run_algorithm(alg, ELEVATION = dem, METHOD = 6,
+                         UNIT_SLOPE = "[1] degree",
+                         UNIT_ASPECT = "[1] degree",
+                         !!!args,
+                         .quiet = TRUE
+)
 # use brick because then the layers will be in memory and not on disk
-ta = brick(out[names(out) != "ASPECT"])
+ta = raster::brick(lapply(out[names(args)], \(x) x[1]))
 names(ta) = c("slope", "cplan", "cprof")
 # catchment area
-find_algorithms("[Cc]atchment")
-alg = "saga:flowaccumulationtopdown"
-get_usage(alg)
-carea = run_qgis(alg, ELEVATION = dem, METHOD = 4,
-                 FLOW = file.path(tempdir(), "carea.tif"),
-                 load_output = TRUE)
+dplyr::filter(algs, grepl("[Cc]atchment", algorithm))
+# in the first geocompr edition we used saga::flowaccumulationtopdown instead of
+# saga:catchmentarea, hence, the carea values have slightly changed
+alg = "saga:catchmentarea"
+qgis_show_help(alg)
+qgis_arguments(alg)
+carea = qgis_run_algorithm(alg,
+                           ELEVATION = dem,
+                           METHOD = 4,
+                           FLOW = file.path(tempdir(), "carea.sdat"))
 # transform carea
+carea = raster(carea$FLOW[1])
 log10_carea = log10(carea)
 names(log10_carea) = "log10_carea"
-names(dem) = "elev"
-# add log_carea
-ta = addLayer(x = ta, dem, log10_carea)
+
+# add log_carea and dem to the terrain attributes
+ta = addLayer(x = ta, elev = dem, log10_carea)
 # extract values to points, i.e., create predictors
 lsl[, names(ta)] = raster::extract(ta, lsl[, c("x", "y")])
 # save data to the data folder of the package
-# devtools::use_data(lsl, overwrite = TRUE)
-# devtools::use_data(ta, overwrite = TRUE)
+usethis::use_data(lsl, overwrite = TRUE)
+writeRaster(ta, filename = "inst/raster/ta.tif", overwrite = TRUE,
+            datatype = "INT2U", options = c("COMPRESS=DEFLATE"))
