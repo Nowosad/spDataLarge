@@ -13,7 +13,12 @@ A dataframe with 100 sites (rows) and 69 species (columns). Species
 A community matrix with species as columns and sites as rows.
   The rownames correspond to the id which can be also found in
   [random_points]. Please note that in fact 100 sites have been visited but
-  in 16 of them no species could be found (see again [random_points]).
+  in 16 of them no species could be found (see again [random_points]). The
+  data is used in the "Ecology" chapter in Geocomputation with R. See
+  \url{https://geocompr.robinlovelace.net/eco.html} for details.
+}
+\examples{
+data("comm", package = "spDataLarge")
 }
 \references{
 Muenchow, J., Bräuning, A., Rodríguez, E.F. & von Wehrden, H.

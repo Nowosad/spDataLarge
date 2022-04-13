@@ -11,7 +11,12 @@ An [sf] object with 100 rows and 3 variables: \describe{
 \description{
 An [sf] (EPSG:32717) object with 100 randomly sampled points
   (stratified by altitude) on the Mt. Mongón (Peru). For more details, please
-  refer to Muenchow et al. (2013).
+  refer to Muenchow et al. (2013). The data is used in the "Ecology" chapter
+  in Geocomputation with R. See
+  \url{https://geocompr.robinlovelace.net/eco.html} for details.
+}
+\examples{
+data("random_points", package = "spDataLarge")
 }
 \references{
 Muenchow, J., Bräuning, A., Rodríguez, E.F. & von Wehrden, H.
