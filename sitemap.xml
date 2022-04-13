@@ -19,16 +19,13 @@
     <loc>/reference/comm.html</loc>
   </url>
   <url>
-    <loc>/reference/dem.html</loc>
-  </url>
-  <url>
     <loc>/reference/dem.tif.html</loc>
   </url>
   <url>
     <loc>/reference/elevation.html</loc>
   </url>
   <url>
-    <loc>/reference/ep.html</loc>
+    <loc>/reference/ep.tif.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -41,9 +38,6 @@
   </url>
   <url>
     <loc>/reference/lsl.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ndvi.html</loc>
   </url>
   <url>
     <loc>/reference/ndvi.tif.html</loc>
