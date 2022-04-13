@@ -2,13 +2,16 @@
 % Please edit documentation in R/mongon.R
 \name{study_area}
 \alias{study_area}
-\title{Mask of the study area}
+\title{Mask of the study area on the Mount Mongón}
 \format{
 An [sf] object with 1 row and 2 variables: \describe{
-  \item{name}{Name.} \item{geometry}{Simple feature polygon geometry.} }
+  \item{name}{Name.} \item{geometry}{Simple feature polygon geometry.}}
 }
 \description{
 An [sf] (EPSG:32717) object of geometry class polygon.
+}
+\examples{
+data("study_area", package = "spDataLarge")
 }
 \references{
 Muenchow, J., Bräuning, A., Rodríguez, E.F. & von Wehrden, H.
