@@ -43,7 +43,8 @@
 #' # readr::write_csv(od_all_small, "od_all_small.csv")
 #' # piggyback::pb_upload("od_all_small.csv")
 #' # file.remove("wu03ew_v2.csv", "julyukrelease_tcm77-369384.xls")
-#' od_all = read_csv("https://github.com/Nowosad/spDataLarge/releases/download/0.2.7.3/od_all_small.csv")
+#' od_all = read_csv(paste0("https://github.com/Nowosad/spDataLarge/",
+#'                          "releases/download/0.2.7.3/od_all_small.csv"))
 #' bristol_od = od_all %>%
 #'        select(o = `Area of residence`, d = `Area of workplace`,
 #'               all = `All categories: Method of travel to work`,
