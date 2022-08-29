@@ -37,10 +37,11 @@ bristol_cents = st_centroid(msoas)[bristol_ttwa, ] |>
         select(geo_code = msoa11cd, name = msoa11nm) |>
         mutate_at(1:2, as.character)
 plot(bristol_cents$geometry)
-bristol_zones = msoas[msoas$msoa11cd %in% zones_cents$msoa11cd, ] |>
+bristol_zones = msoas[msoas$msoa11cd %in% bristol_cents$msoa11cd, ] |>
         select(geo_code = msoa11cd, name = msoa11nm) |>
-        mutate_at(1:2, as.character)
-plot(zones$geometry, add = TRUE)
+        mutate_at(1:2, as.character) |>
+        sf::st_set_crs("EPSG:4326")
+
 
 # get origin-destination data ---------------------------------------------
 
@@ -48,9 +49,9 @@ plot(zones$geometry, add = TRUE)
 od_all = pct::get_od()
 bristol_od = od_all |>
         select(o = geo_code1, d = geo_code2, all, bicycle, foot, car_driver, train) |>
-        filter(o %in% zones$geo_code & d %in% zones$geo_code, all > 19)
-summary(zones$geo_code %in% bristol_od$d)
-summary(zones$geo_code %in% bristol_od$o)
+        filter(o %in% bristol_zones$geo_code & d %in% bristol_zones$geo_code, all > 19)
+summary(bristol_zones$geo_code %in% bristol_od$d)
+summary(bristol_zones$geo_code %in% bristol_od$o)
 
 summary(bristol_zones$geo_code %in% bristol_od$d)
 summary(bristol_zones$geo_code %in% bristol_od$o)
@@ -74,7 +75,6 @@ ways_rail = opq(bbox = bb) |>
         osmdata_sf()
 summary(ways_road)
 summary(ways_rail)
-summary(res)
 
 mapview::mapview(ways_rail$osm_points)
 
@@ -88,16 +88,14 @@ rail_station_points = res$osm_points |>
         filter(!duplicated(name))
 mapview::mapview(rail_station_points)
 
-# most important vars:
-map_int(rail_stations, ~ sum(is.na(.))) |>
-        sort() |>
-        head()
 bristol_stations_old = rail_station_points |>
         select(name)
 bristol_stations = rail_station_points |>
         select(name) |>
         sf::st_set_crs("EPSG:4326")
 waldo::compare(bristol_stations_old, bristol_stations)
+waldo::compare(sf::st_crs(bristol_zones), sf::st_crs(bristol_stations))
+
 usethis::use_data(bristol_stations, overwrite = TRUE)
 
 # clean osm data ----------------------------------------------------------
