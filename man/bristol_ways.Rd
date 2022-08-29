@@ -24,10 +24,10 @@ Data used in the transport chapter in Geocomputation with R.
 See \url{http://geocompr.robinlovelace.net/transport.html} for details.
 }
 \examples{
+library(sf)
 bristol_ways
 bristol_od
 bristol_region
-bristol_cents
 bristol_ttwa
 bristol_zones
 bristol_stations
