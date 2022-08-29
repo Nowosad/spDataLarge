@@ -33,7 +33,7 @@ usethis::use_data(bristol_ttwa, overwrite = TRUE)
 
 msoas = msoa2011_vsimple |>
         sf::st_set_crs("EPSG:4326")
-bristol_cents = st_centroid(msoas)[region_ttwa, ] |>
+bristol_cents = st_centroid(msoas)[bristol_ttwa, ] |>
         select(geo_code = msoa11cd, name = msoa11nm) |>
         mutate_at(1:2, as.character)
 plot(bristol_cents$geometry)
@@ -65,27 +65,40 @@ od_inter = filter(bristol_od, o != d)
 
 # get route network data --------------------------------------------------
 
-bb = st_bbox(region_ttwa)
+bb = st_bbox(bristol_ttwa)
 ways_road = opq(bbox = bb) |>
         add_osm_feature(key = "highway", value = "motorway|cycle|primary|secondary", value_exact = FALSE) |>
         osmdata_sf()
 ways_rail = opq(bbox = bb) |>
         add_osm_feature(key = "railway", value = "rail") |>
         osmdata_sf()
-res = c(ways_road, ways_rail)
+summary(ways_road)
+summary(ways_rail)
 summary(res)
 
-rail_stations = res$osm_points |>
-        filter(railway == "station" | name == "Bristol Temple Meads")
+mapview::mapview(ways_rail$osm_points)
+
+res_rail_stations = opq(bbox = bb) |>
+        add_osm_feature(key = "railway", value = "station") |>
+        osmdata_sf()
+res = c(ways_road, ways_rail, res_rail_stations)
+
+rail_station_points = res$osm_points |>
+        filter(railway == "station" | name == "Bristol Temple Meads") |>
+        filter(!duplicated(name))
+mapview::mapview(rail_station_points)
+
 # most important vars:
 map_int(rail_stations, ~ sum(is.na(.))) |>
         sort() |>
         head()
-rail_stations = rail_stations |> select(name)
+bristol_stations = rail_station_points |>
+        select(name)
+usethis::use_data(bristol_stations, overwrite = TRUE)
 
 # clean osm data ----------------------------------------------------------
 
-ways = st_intersection(res$osm_lines, region_ttwa)
+ways = st_intersection(res$osm_lines, bristol_ttwa)
 ways$highway = as.character(ways$highway)
 ways$highway[ways$railway == "rail"] = "rail"
 ways$highway = gsub("_link", "", x = ways$highway) |>
@@ -104,11 +117,4 @@ plot(spDataLarge::bristol_ways)
 plot(bristol_ways)
 usethis::use_data(bristol_ways, overwrite = TRUE)
 
-bristol_stations = res$osm_points %>%
-        filter(railway == "station" | name == "Bristol Temple Meads")
-# most important vars:
-map_int(bristol_stations, ~ sum(is.na(.))) %>%
-        sort() %>%
-        head()
-bristol_stations = bristol_stations %>% select(name)
-usethis::use_data(bristol_stations, overwrite = TRUE)
+
