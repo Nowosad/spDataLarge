@@ -92,8 +92,12 @@ mapview::mapview(rail_station_points)
 map_int(rail_stations, ~ sum(is.na(.))) |>
         sort() |>
         head()
-bristol_stations = rail_station_points |>
+bristol_stations_old = rail_station_points |>
         select(name)
+bristol_stations = rail_station_points |>
+        select(name) |>
+        sf::st_set_crs("EPSG:4326")
+waldo::compare(bristol_stations_old, bristol_stations)
 usethis::use_data(bristol_stations, overwrite = TRUE)
 
 # clean osm data ----------------------------------------------------------
