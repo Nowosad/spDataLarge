@@ -8,6 +8,7 @@
 #' @source \url{http://wicid.ukdataservice.ac.uk/} and other open access sources
 #' @aliases bristol_od bristol_region bristol_cents bristol_ttwa bristol_zones bristol_stations
 #' @examples
+#' bristol_ways
 #' bristol_od
 #' bristol_region
 #' bristol_cents
@@ -15,5 +16,3 @@
 #' bristol_zones
 #' bristol_stations
 "bristol_ways"
-
-
