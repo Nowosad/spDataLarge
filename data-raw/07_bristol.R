@@ -37,11 +37,9 @@ bristol_cents = st_centroid(msoas)[bristol_ttwa, ] |>
         select(geo_code = msoa11cd, name = msoa11nm) |>
         mutate_at(1:2, as.character)
 plot(bristol_cents$geometry)
-bristol_zones = msoas[msoas$msoa11cd %in% bristol_cents$msoa11cd, ] |>
+bristol_zones = msoas[msoas$msoa11cd %in% bristol_cents$geo_code, ] |>
         select(geo_code = msoa11cd, name = msoa11nm) |>
-        mutate_at(1:2, as.character) |>
-        sf::st_set_crs("EPSG:4326")
-
+        mutate_at(1:2, as.character)
 
 # get origin-destination data ---------------------------------------------
 
