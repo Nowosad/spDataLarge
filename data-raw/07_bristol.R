@@ -110,11 +110,17 @@ summary(st_geometry_type(ways))
 # convert to linestring
 ways = st_cast(ways, "LINESTRING")
 summary(st_geometry(ways))
-bristol_ways = st_cast(ways, "LINESTRING")
+bristol_ways = st_cast(ways, "LINESTRING") |>
+        sf::st_set_crs("EPSG:4326")
 summary(st_geometry(bristol_ways))
 waldo::compare(spDataLarge::bristol_ways, bristol_ways)
 plot(spDataLarge::bristol_ways)
 plot(bristol_ways)
 usethis::use_data(bristol_ways, overwrite = TRUE)
 
+# Test CRSs:
+waldo::compare(sf::st_crs(bristol_zones), sf::st_crs(bristol_stations))
+waldo::compare(sf::st_crs(bristol_zones), sf::st_crs(bristol_region))
+waldo::compare(sf::st_crs(bristol_zones), sf::st_crs(bristol_ways))
+waldo::compare(sf::st_crs(bristol_zones), sf::st_crs(bristol_ttwa))
 
