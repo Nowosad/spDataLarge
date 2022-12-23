@@ -1,6 +1,6 @@
 Package: spDataLarge
 Title: Large datasets for spatial analysis
-Version: 2.0.7
+Version: 2.0.9
 Authors@R: c(person("Jakub", "Nowosad", role = c("aut", "cre"), email="nowosad.jakub@gmail.com"),
              person("Robin", "Lovelace", role = c("aut"), email="rob00x@gmail.com"),
              person("Jannes", "Muenchow", role = c("ctb")))
@@ -11,7 +11,7 @@ Depends:
 Imports:
     raster
 License: CC0
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 LazyData: true
 LazyDataCompression: bzip2
 URL: https://github.com/Nowosad/spData
