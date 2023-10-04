@@ -1,6 +1,6 @@
 Package: spDataLarge
 Title: Large datasets for spatial analysis
-Version: 2.0.9
+Version: 2.1.1
 Authors@R: c(person("Jakub", "Nowosad", role = c("aut", "cre"), email="nowosad.jakub@gmail.com"),
              person("Robin", "Lovelace", role = c("aut"), email="rob00x@gmail.com"),
              person("Jannes", "Muenchow", role = c("ctb")))
@@ -8,8 +8,6 @@ Description: Large datasets for spatial analysis.
   The data from this package could be retrived using the spData package.
 Depends:
     R (>= 3.3.0)
-Imports:
-    raster
 License: CC0
 RoxygenNote: 7.2.3
 LazyData: true
