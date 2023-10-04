@@ -1,7 +1,8 @@
 #' Dataset landsat
 #'
 #' This is a dataset containing the four bands (2, 3, 4, 5) of the Landsat 8 image for
-#' the area of Zion National Park
+#' the area of Zion National Park. A scale factor should be applied before using the data:   
+#' \url{https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products}
 #'
 #' @format A multilayer geotiff file
 #'

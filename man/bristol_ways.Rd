@@ -9,9 +9,6 @@
 \alias{bristol_ttwa}
 \alias{bristol_zones}
 \alias{bristol_stations}
-\alias{desire_carshort}
-\alias{route_carshort}
-\alias{route_rail}
 \title{Datasets providing a snapshot of Bristol's transport system}
 \format{
 sf data frame objects
@@ -28,10 +25,8 @@ See \url{http://geocompr.robinlovelace.net/transport.html} for details.
 }
 \examples{
 \dontrun{
-devtools::install_github("ropensci/osmdata")
-devtools::install_github("robinlovelace/ukboundaries")
-library(osmdata)
 library(sf)
+<<<<<<< HEAD
 library(tidyverse)
 library(ukboundaries)
 library(stplanr)
@@ -115,6 +110,14 @@ summary(st_geometry_type(ways))
 bristol_ways = st_cast(ways, "LINESTRING")
 summary(st_geometry(bristol_ways))
 # usethisis::use_data(bristol_ways, overwrite = TRUE)
+=======
+bristol_ways
+bristol_od
+bristol_region
+bristol_ttwa
+bristol_zones
+bristol_stations
+>>>>>>> master
 }
 }
 \keyword{datasets}
