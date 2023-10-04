@@ -26,7 +26,6 @@ See \url{http://geocompr.robinlovelace.net/transport.html} for details.
 \examples{
 \dontrun{
 library(sf)
-<<<<<<< HEAD
 library(tidyverse)
 library(ukboundaries)
 library(stplanr)
@@ -110,14 +109,12 @@ summary(st_geometry_type(ways))
 bristol_ways = st_cast(ways, "LINESTRING")
 summary(st_geometry(bristol_ways))
 # usethisis::use_data(bristol_ways, overwrite = TRUE)
-=======
 bristol_ways
 bristol_od
 bristol_region
 bristol_ttwa
 bristol_zones
 bristol_stations
->>>>>>> master
 }
 }
 \keyword{datasets}
