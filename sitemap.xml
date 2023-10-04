@@ -22,9 +22,6 @@
     <loc>/reference/dem.tif.html</loc>
   </url>
   <url>
-    <loc>/reference/elevation.html</loc>
-  </url>
-  <url>
     <loc>/reference/ep.tif.html</loc>
   </url>
   <url>
@@ -43,16 +40,10 @@
     <loc>/reference/ndvi.tif.html</loc>
   </url>
   <url>
-    <loc>/reference/nlcd.html</loc>
-  </url>
-  <url>
     <loc>/reference/nlcd.tif.html</loc>
   </url>
   <url>
     <loc>/reference/nlcd2011.tif.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nz_elev.html</loc>
   </url>
   <url>
     <loc>/reference/nz_elev.tif.html</loc>
