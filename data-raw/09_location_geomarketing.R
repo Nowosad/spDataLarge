@@ -1,120 +1,109 @@
-# Filename: 09_location_geomarketing.R (2022-12-01)
-
-# TO DO: save data used in the location/geomarketing chapter
-# the code here is basically a copy of code/chapters/14-location.R
-
+# Filename: 09_location_geomarketing.R (2026-01-21)
+#
+# TO DO: Generate metro_names and shops for location/geomarketing chapter
+# Uses z22 package for Census 2022 data instead of bundled census_de
+#
 # Author(s): jannes-m
-
+#
+# IMPORTANT: Requires z22 package to be installed
+# install.packages("z22", repos = "https://geocompx.r-universe.dev")
+#
 #**********************************************************
 # CONTENTS----
 #**********************************************************
-
-# 1 attach packages and data
-# 2 census_de
-# 3 metro_names
-# 4 shops
+# 1 attach packages
+# 2 metro_names (generated from Census 2022 population data)
+# 3 shops (downloaded from OSM for identified metros)
 
 #**********************************************************
-# 1 attach packages and data----
+# 1 attach packages----
 #**********************************************************
 
-# attach packages
 library("dplyr")
 library("osmdata")
-library("readr")
 library("tmaptools")
 library("terra")
+library("sf")
+library("purrr")
+library("z22")
 
 #**********************************************************
-# 2 census_de----
+# 2 metro_names----
 #**********************************************************
 
-download.file("https://tinyurl.com/ybtpkwxz",
-              destfile = "census.zip", mode = "wb")
-unzip("census.zip") # unzip the files
-census_de = readr::read_csv2(list.files(pattern = "Gitter.csv"))
-usethis::use_data(census_de)
+# Load Census 2022 population data at 1km resolution
+pop = z22::z22_data("population", res = "1km", year = 2022, as = "df") |>
+  rename(pop = cat_0) |>
+  mutate(pop = ifelse(pop < 0, NA, pop)) |>
+  # Correct z22 coordinate offset (z22 adds 500m to already-midpoint coordinates)
+  mutate(x = x - 500, y = y - 500) |>
+  # Reorder columns for terra::rast (expects x, y, values)
+  select(x, y, pop)
 
-#**********************************************************
-# 3 metro_names----
-#**********************************************************
+# Convert to raster
+pop_ras = terra::rast(pop, type = "xyz", crs = "EPSG:3035")
 
-# pop = population, hh_size = household size
-input = dplyr::select(census_de, x = x_mp_1km, y = y_mp_1km, pop = Einwohner,
-                      women = Frauen_A, mean_age = Alter_D,
-                      hh_size = HHGroesse_D)
-input_tidy = dplyr::mutate(
-        input,
-        dplyr::across(.fns =  ~ifelse(.x %in% c(-1, -9), NA, .x)))
-input_ras = terra::rast(input_tidy, type = "xyz", crs = "EPSG:3035")
-rcl_pop = matrix(c(1, 1, 127, 2, 2, 375, 3, 3, 1250,
-                   4, 4, 3000, 5, 5, 6000, 6, 6, 8000),
-                 ncol = 3, byrow = TRUE)
-rcl_women = matrix(c(1, 1, 3, 2, 2, 2, 3, 3, 1, 4, 5, 0),
-                   ncol = 3, byrow = TRUE)
-rcl_age = matrix(c(1, 1, 3, 2, 2, 0, 3, 5, 0),
-                 ncol = 3, byrow = TRUE)
-rcl_hh = rcl_women
-rcl = list(rcl_pop, rcl_women, rcl_age, rcl_hh)
-reclass = input_ras
-for (i in seq_len(terra::nlyr(reclass))) {
-        reclass[[i]] = terra::classify(x = reclass[[i]], rcl = rcl[[i]],
-                                       right = NA)
-}
-names(reclass) = names(input_ras)
-
-pop_agg = terra::aggregate(reclass$pop, fact = 20, fun = sum, na.rm = TRUE)
+# Aggregate by factor 20 and filter >500,000 population
+pop_agg = terra::aggregate(pop_ras, fact = 20, fun = sum, na.rm = TRUE)
 pop_agg = pop_agg[pop_agg > 500000, drop = FALSE]
-polys = pop_agg |>
-        terra::patches(directions = 8) |>
-        terra::as.polygons() |>
-        sf::st_as_sf()
-metros = polys |>
-        dplyr::group_by(patches) |>
-        dplyr::summarize()
 
+# Convert to polygons representing metro regions
+polys = pop_agg |>
+  terra::patches(directions = 8) |>
+  terra::as.polygons() |>
+  sf::st_as_sf()
+metros = polys |>
+  dplyr::group_by(patches) |>
+  dplyr::summarize()
+
+# Reverse geocode centroids to get metro names
 metro_names = sf::st_centroid(metros, of_largest_polygon = TRUE) |>
-        tmaptools::rev_geocode_OSM(as.data.frame = TRUE) |>
-        dplyr::select(city, town, state)
-# smaller cities are returned in column town. To have all names in one column,
-# we move the town name to the city column in case it is NA
+  tmaptools::rev_geocode_OSM(as.data.frame = TRUE) |>
+  dplyr::select(city, town, state)
+
+# Move town name to city column where city is NA
 metro_names = dplyr::mutate(metro_names, city = ifelse(is.na(city), town, city))
 
 usethis::use_data(metro_names, overwrite = TRUE)
 
 #**********************************************************
-# 4 shops----
+# 3 shops----
 #**********************************************************
-metro_names = metro_names$city |>
-        as.character() |>
-        {\(x) ifelse(x == "Velbert", "Düsseldorf", x)}() |>
-        {\(x) gsub("ü", "ue", x)}()
 
-shops = purrr::map(metro_names, function(x) {
+# Prepare metro names for OSM queries
+# Census 2022 detects 10 metros; some need manual correction:
+# - Wuelfrath/Velbert -> Duesseldorf (part of greater Duesseldorf region)
+# - Langenhagen -> Hannover (part of Hannover metro)
+metro_names_vec = metro_names$city |>
+  as.character() |>
+  (\(x) ifelse(x %in% c("Velbert", "W\u00fclfrath"), "Duesseldorf", x))() |>
+  (\(x) ifelse(x == "Langenhagen", "Hannover", x))() |>
+  (\(x) gsub("\u00fc", "ue", x))()
+
+# Download shops from OSM for each metro area
+shops = purrr::map(metro_names_vec, function(x) {
   message("Downloading shops of: ", x, "\n")
-  # give the server a bit time
-  Sys.sleep(sample(seq(5, 10, 0.1), 1))
+  Sys.sleep(sample(seq(10, 15, 0.1), 1))
   query = osmdata::opq(x) |>
     osmdata::add_osm_feature(key = "shop")
   points = osmdata::osmdata_sf(query)
-  # request the same data again if nothing has been downloaded
   iter = 2
-  while (nrow(points$osm_points) == 0 & iter > 0) {
-    points = osmdata_sf(query)
+  while (nrow(points$osm_points) == 0 && iter > 0) {
+    points = osmdata::osmdata_sf(query)
     iter = iter - 1
   }
-  # return only the point features
-  points$osm_points
+  # Select only osm_id and shop columns, preserving geometry
+  points$osm_points[, c("osm_id", "shop")]
 })
 
-
-# checking if we have downloaded shops for each metropolitan area
+# Check for missing downloads
 ind = purrr::map_dbl(shops, nrow) == 0
 if (any(ind)) {
-  message("There are/is still (a) metropolitan area/s without any features:\n",
-          paste(metro_names[ind], collapse = ", "), "\nPlease fix it!")
+  message("Metropolitan areas without features:\n",
+          paste(metro_names_vec[ind], collapse = ", "), "\nPlease retry!")
 }
 
-# select only specific columns
-shops = purrr::map_dfr(shops, dplyr::select, osm_id, shop)
-usethis::use_data(shops)
+# Combine sf objects using rbind (preserves geometry)
+shops = do.call(rbind, shops)
+
+usethis::use_data(shops, overwrite = TRUE)
