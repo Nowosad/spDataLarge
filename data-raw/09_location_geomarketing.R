@@ -92,8 +92,7 @@ shops = purrr::map(metro_names_vec, function(x) {
     points = osmdata::osmdata_sf(query)
     iter = iter - 1
   }
-  # Select only osm_id and shop columns, preserving geometry
-  points$osm_points[, c("osm_id", "shop")]
+  points$osm_points
 })
 
 # Check for missing downloads
@@ -103,7 +102,7 @@ if (any(ind)) {
           paste(metro_names_vec[ind], collapse = ", "), "\nPlease retry!")
 }
 
-# Combine sf objects using rbind (preserves geometry)
-shops = do.call(rbind, shops)
+# Select only specific columns and combine
+shops = purrr::map_dfr(shops, dplyr::select, osm_id, shop)
 
 usethis::use_data(shops, overwrite = TRUE)
