@@ -5,8 +5,8 @@
 #
 # Author(s): jannes-m
 #
-# IMPORTANT: Requires z22 package to be installed
-# install.packages("z22", repos = "https://geocompx.r-universe.dev")
+# IMPORTANT: Requires z22 package to be installed (GitHub version for coordinate fix)
+# remotes::install_github("JsLth/z22")
 #
 #**********************************************************
 # CONTENTS----
@@ -35,8 +35,6 @@ library("z22")
 pop = z22::z22_data("population", res = "1km", year = 2022, as = "df") |>
   rename(pop = cat_0) |>
   mutate(pop = ifelse(pop < 0, NA, pop)) |>
-  # Correct z22 coordinate offset (z22 adds 500m to already-midpoint coordinates)
-  mutate(x = x - 500, y = y - 500) |>
   # Reorder columns for terra::rast (expects x, y, values)
   select(x, y, pop)
 
