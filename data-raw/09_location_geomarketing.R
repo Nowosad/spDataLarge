@@ -1,7 +1,7 @@
 # Filename: 09_location_geomarketing.R (2026-01-21)
 #
-# TO DO: Generate metro_names and shops for location/geomarketing chapter
-# Uses z22 package for Census 2022 data instead of bundled census_de
+# TO DO: Generate census_de, metro_names and shops for location/geomarketing chapter
+# Uses z22 package for Census 2022 data during data preparation
 #
 # Author(s): jannes-m
 #
@@ -12,8 +12,9 @@
 # CONTENTS----
 #**********************************************************
 # 1 attach packages
-# 2 metro_names (generated from Census 2022 population data)
-# 3 shops (downloaded from OSM for identified metros)
+# 2 census_de (bundled census data)
+# 3 metro_names (generated from Census 2022 population data)
+# 4 shops (downloaded from OSM for identified metros)
 
 #**********************************************************
 # 1 attach packages----
@@ -28,18 +29,38 @@ library("purrr")
 library("z22")
 
 #**********************************************************
-# 2 metro_names----
+# 2 census_de----
 #**********************************************************
 
-# Load Census 2022 population data at 1km resolution
+# Load Census 2022 data at 1km resolution (women from 2011, others from 2022)
 pop = z22::z22_data("population", res = "1km", year = 2022, as = "df") |>
-  rename(pop = cat_0) |>
+  rename(pop = cat_0)
+women = z22::z22_data("women", year = 2011, res = "1km", as = "df") |>
+  rename(women = cat_0)
+mean_age = z22::z22_data("age_avg", res = "1km", year = 2022, as = "df") |>
+  rename(mean_age = cat_0)
+hh_size = z22::z22_data("household_size_avg", res = "1km", year = 2022, as = "df") |>
+  rename(hh_size = cat_0)
+
+census_de = pop |>
+  left_join(women, by = c("x", "y")) |>
+  left_join(mean_age, by = c("x", "y")) |>
+  left_join(hh_size, by = c("x", "y")) |>
+  select(x, y, pop, women, mean_age, hh_size)
+
+usethis::use_data(census_de, overwrite = TRUE)
+
+#**********************************************************
+# 3 metro_names----
+#**********************************************************
+
+# Use pop from census_de (already loaded in section 2)
+pop_clean = pop |>
   mutate(pop = ifelse(pop < 0, NA, pop)) |>
-  # Reorder columns for terra::rast (expects x, y, values)
   select(x, y, pop)
 
 # Convert to raster
-pop_ras = terra::rast(pop, type = "xyz", crs = "EPSG:3035")
+pop_ras = terra::rast(pop_clean, type = "xyz", crs = "EPSG:3035")
 
 # Aggregate by factor 20 and filter >500,000 population
 pop_agg = terra::aggregate(pop_ras, fact = 20, fun = sum, na.rm = TRUE)
@@ -65,7 +86,7 @@ metro_names = dplyr::mutate(metro_names, city = ifelse(is.na(city), town, city))
 usethis::use_data(metro_names, overwrite = TRUE)
 
 #**********************************************************
-# 3 shops----
+# 4 shops----
 #**********************************************************
 
 # Prepare metro names for OSM queries
