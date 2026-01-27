@@ -12,7 +12,7 @@ A raster geotiff (EPSG:32717) representing altitude
   \item{dem}{Altitude in m asl.}. For more details, please refer to Muenchow et
   al. (2013).}.
    The data is used in the "Ecology" chapter in Geocomputation with R.
-   See \url{https://geocompr.robinlovelace.net/eco.html} for details.
+   See \url{https://r.geocompx.org/eco.html} for details.
 }
 \examples{
 system.file("raster/ndvi.tif", package = "spDataLarge")

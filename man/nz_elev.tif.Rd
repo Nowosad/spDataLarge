@@ -7,7 +7,7 @@
 A geotiff file
 }
 \source{
-\url{https://aws.amazon.com/public-datasets/terrain/}
+\url{https://registry.opendata.aws/terrain-tiles/}
 }
 \description{
 Elevation raster data of the New Zealand area from the Mapzen Terrain Service.

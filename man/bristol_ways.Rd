@@ -14,14 +14,14 @@
 sf data frame objects
 }
 \source{
-\url{http://wicid.ukdataservice.ac.uk/} and other open access sources
+\url{https://wicid.ukdataservice.ac.uk/} and other open access sources
 }
 \usage{
 bristol_ways
 }
 \description{
 Data used in the transport chapter in Geocomputation with R.
-See \url{http://geocompr.robinlovelace.net/transport.html} for details.
+See \url{https://r.geocompx.org/transport.html} for details.
 }
 \examples{
 \dontrun{

@@ -7,7 +7,7 @@
 A geotiff file
 }
 \source{
-\url{http://srtm.csi.cgiar.org/SRT-ZIP/SRTM_V41/SRTM_Data_GeoTiff/srtm_14_05.zip}
+\url{https://srtm.csi.cgiar.org/SRT-ZIP/SRTM_V41/SRTM_Data_GeoTiff/srtm_14_05.zip}
 }
 \description{
 This is a dataset containing the elevation raster data from SRTM of

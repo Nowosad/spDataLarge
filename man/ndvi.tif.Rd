@@ -12,7 +12,7 @@ NDVI raster geotiff (EPSG:32717) computed from a Landsat scene
   117 columns: \describe{ \item{ndvi}{Normalized difference vegetation
   index.}. For more details, please refer to Muenchow et al. (2013).}.
   The data is used in the "Ecology" chapter in Geocomputation with R.
-  See \url{https://geocompr.robinlovelace.net/eco.html} for details.
+  See \url{https://r.geocompx.org/eco.html} for details.
 }
 \examples{
 system.file("raster/ndvi.tif", package = "spDataLarge")

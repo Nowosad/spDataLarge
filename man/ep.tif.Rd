@@ -15,7 +15,7 @@ A geotiff file (CRS: UTM zone 17S; EPSG:32717) with 117 rows and 117 columns:
     \item{\code{cslope}} {Catchment slope}
     }
 The data is used in the "Ecology" chapter in Geocomputation with R.
-See \url{https://geocompr.robinlovelace.net/eco.html} for details.
+See \url{https://r.geocompx.org/eco.html} for details.
 }
 \examples{
 system.file("raster/ep.tif", package = "spDataLarge")

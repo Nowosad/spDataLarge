@@ -15,13 +15,13 @@ There are three possible options:
 1. Installation of **spDataLarge** using its r-universe location:
 
 ```r
-install.packages("spDataLarge", repos = "https://geocompr.r-universe.dev")
+install.packages("spDataLarge", repos = "https://geocompx.r-universe.dev")
 ```
 
-2. Installation of all of the required packages used in [the Geocomputation with R book](https://geocompr.github.io/) using:
+2. Installation of all of the required packages used in [the Geocomputation with R book](https://r.geocompx.org/) using:
 
 ```r
-devtools::install_github("geocompr/geocompkg")
+devtools::install_github("geocompx/geocompkg")
 ```
 
 3. Installation of **spDataLarge** using its drat location:

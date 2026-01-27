@@ -15,7 +15,7 @@ london_streets
 }
 \description{
 Data used in the "Bridges to GIS" chapter in Geocomputation with R.
-See \url{http://geocompr.robinlovelace.net/gis.html} for details.
+See \url{https://r.geocompx.org/gis.html} for details.
 }
 \examples{
 \dontrun{

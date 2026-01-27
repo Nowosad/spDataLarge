@@ -22,7 +22,7 @@
 }
 }
 \source{
-\url{https://prezydent2015.pkw.gov.pl/319_Pierwsze_glosowanie}, \url{https://prezydent2015.pkw.gov.pl/325_Ponowne_glosowanie}, \url{http://www.codgik.gov.pl/index.php/darmowe-dane/prg.html}
+\url{http://prezydent2015.pkw.gov.pl/319_Pierwsze_glosowanie/}, \url{http://prezydent2015.pkw.gov.pl/325_Ponowne_glosowanie/}, \url{https://www.gov.pl/web/gugik}
 }
 \usage{
 pol_pres15

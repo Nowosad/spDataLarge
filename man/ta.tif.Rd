@@ -25,7 +25,7 @@ DEM dataset of the RSAGA package: \code{data("landslides",
 }
 \description{
 Data used in the "Statistical learning for geographic data" chapter in Geocomputation with R.
-See \url{http://geocompr.robinlovelace.net/spatial-cv.html} for details.
+See \url{https://r.geocompx.org/spatial-cv.html} for details.
 }
 \examples{
 system.file("raster/ta.tif", package = "spDataLarge")

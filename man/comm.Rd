@@ -15,7 +15,7 @@ A community matrix with species as columns and sites as rows.
   [random_points]. Please note that in fact 100 sites have been visited but
   in 16 of them no species could be found (see again [random_points]). The
   data is used in the "Ecology" chapter in Geocomputation with R. See
-  \url{https://geocompr.robinlovelace.net/eco.html} for details.
+  \url{https://r.geocompx.org/eco.html} for details.
 }
 \examples{
 data("comm", package = "spDataLarge")
